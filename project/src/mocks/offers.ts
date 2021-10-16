@@ -26,7 +26,7 @@ export const offers: Offer[] = [
     images: [
       'img/room.jpg', 'img/apartment-01.jpg',
       'img/apartment-02.jpg', 'img/apartment-03.jpg',
-      'img/studio-01.jpg', 'img/apartment-01.jpg'],
+      'img/studio-01.jpg', 'img/paris2.jpg'],
     isFavorite: false,
     isPremium: true,
     location: {
@@ -141,7 +141,7 @@ export const offers: Offer[] = [
     images: [
       'img/room.jpg', 'img/paris2.jpg',
       'img/apartment-02.jpg', 'img/apartment-03.jpg',
-      'img/room.jpg', 'img/apartment-01.jpg'],
+      'img/studio-01.jpg', 'img/apartment-01.jpg'],
     isFavorite: false,
     isPremium: false,
     location: {
