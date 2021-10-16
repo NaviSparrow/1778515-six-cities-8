@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch, useParams} from 'react-router-dom';
 import MainScreen from '../main-screen/main-screen';
 import AuthScreen from '../auth-screen/auth-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
@@ -14,6 +14,7 @@ type AppScreenProps = {
 }
 
 function App({offersCount, offers}: AppScreenProps): JSX.Element {
+  const { id } = useParams<{id: string}>();
   return(
     <BrowserRouter>
       <Switch>
@@ -30,8 +31,14 @@ function App({offersCount, offers}: AppScreenProps): JSX.Element {
           authorizationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.Room}>
-          <PropertyScreen />
+        <Route exact path={'/offer/:id'}>
+          render={() => {
+            const offer = offers.find((item) => item.id === parseInt(id, 10));
+            if (offer === undefined) {
+              return <NotFoundPage/>;
+            }
+            return <PropertyScreen offer={offer} />;
+          }}
         </Route>
         <Route>
           <NotFoundPage />

@@ -44,3 +44,7 @@ export type ImageWrapper = {
   image: string;
  }
 
+export type OfferType = {
+  offer: Offer | undefined;
+ }
+

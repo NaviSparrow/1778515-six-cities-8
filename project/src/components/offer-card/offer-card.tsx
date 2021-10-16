@@ -1,5 +1,5 @@
 import {Offer} from '../../types/offer';
-import {AppRoute, NOT_ACTIVE_STATE} from '../../const';
+import { NOT_ACTIVE_STATE} from '../../const';
 import {Link} from 'react-router-dom';
 
 type OfferCardProps = {
@@ -18,7 +18,7 @@ function OfferCard({offer, updateState}:OfferCardProps): JSX.Element {
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.Room}/${id}`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200"
             alt="Place image"
           />
@@ -44,7 +44,7 @@ function OfferCard({offer, updateState}:OfferCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
