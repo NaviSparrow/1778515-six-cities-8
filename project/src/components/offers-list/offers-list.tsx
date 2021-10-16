@@ -9,8 +9,6 @@ type OffersListProps = {
 
 function OffersList({offers}:OffersListProps):JSX.Element {
   const [activeOfferid, setActiveOfferid] = useState<number | null>(null);
-  // eslint-disable-next-line no-console
-  console.log(activeOfferid);
   function updateState (value: number | null): void {
     setActiveOfferid(value);
   }
