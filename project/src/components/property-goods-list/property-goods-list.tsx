@@ -1,10 +1,10 @@
 import React from 'react';
 
-type PropertyInsideListProps = {
+type PropertyGoodsListProps = {
   goods: string[];
 }
 
-function PropertyInsideList({goods}: PropertyInsideListProps): JSX.Element {
+function PropertyGoodsList({goods}: PropertyGoodsListProps): JSX.Element {
   return(
     <ul className="property__inside-list">
       {goods.map((item) => (
@@ -16,4 +16,4 @@ function PropertyInsideList({goods}: PropertyInsideListProps): JSX.Element {
   );
 }
 
-export default PropertyInsideList;
+export default PropertyGoodsList;

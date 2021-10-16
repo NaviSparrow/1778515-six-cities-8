@@ -37,12 +37,17 @@ function App({offersCount, offers}: AppScreenProps): JSX.Element {
           render={(routeProps: RouteComponentProps<{id: string}>) => {
             const id =  routeProps.match.params.id;
             const offer = offers.find((item) => item.id === parseInt(id, 10));
-            // eslint-disable-next-line no-console
-            console.log(offer);
             if (offer === undefined) {
-              return <NotFoundPage/>;
+              return <NotFoundPage />;
             }
-            return <PropertyScreen offer={offer} />;
+            return (
+              <PropertyScreen
+                offer={offer}
+                onSubmit={() => {
+                  throw new Error('Function \'onSubmit\' isn\'t implemented.');
+                }}
+              />
+            );
           }}
         >
         </Route>

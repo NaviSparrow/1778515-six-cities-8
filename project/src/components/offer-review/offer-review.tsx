@@ -5,6 +5,8 @@ type OfferReviewProps = {
   review: Review;
 }
 
+const formatDate = (date:string, format:string) => dayjs(date).format(format).toString();
+
 function OfferReview({review}: OfferReviewProps):JSX.Element {
   const {comment, date, rating, user} = review;
   return (
@@ -29,7 +31,7 @@ function OfferReview({review}: OfferReviewProps):JSX.Element {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={`${dayjs(date, 'YYYY-MM-DD')}`}>{dayjs(date, 'MMMM YYYY')}</time>
+        <time className="reviews__time" dateTime={formatDate(date, 'YYYY-MM-DD')}>{formatDate(date, 'MMMM YYYY')}</time>
       </div>
     </li>
   );

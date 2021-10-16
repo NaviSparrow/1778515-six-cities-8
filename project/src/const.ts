@@ -11,4 +11,3 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const NOT_ACTIVE_STATE = -1;

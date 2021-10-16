@@ -1,17 +1,27 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, FormEvent} from 'react';
 import {useState} from 'react';
 import ReviewsFormRating from '../reviews-form-rating/reviews-form-rating';
 
-function ReviewsForm():JSX.Element {
+type ReviewsFormProps = {
+  onSubmit: (reviewText: string, reviewRating: string) => void;
+}
+
+function ReviewsForm({onSubmit}: ReviewsFormProps):JSX.Element {
   const [reviewRating, setReviewRating] = useState('0');
   const [reviewText, setReviewText] = useState('');
-  // eslint-disable-next-line no-console
-  console.log(reviewRating, reviewText);
   function updateReviewRating (value:string):void {
     setReviewRating(value);
   }
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={(evt:FormEvent<HTMLFormElement>) => {
+        evt.preventDefault();
+        onSubmit(reviewText, reviewRating);
+      }}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <ReviewsFormRating updateReviewRating={updateReviewRating} />
       <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"

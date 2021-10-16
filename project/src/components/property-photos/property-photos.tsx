@@ -1,11 +1,11 @@
 import React from 'react';
 
-type PropertyGalleryProps = {
+type PropertyPhotosProps = {
   images: string[];
 
 }
 
-function PropertyGallery({images}: PropertyGalleryProps): JSX.Element {
+function PropertyPhotos({images}: PropertyPhotosProps): JSX.Element {
   return (
     <React.Fragment>
       {images.map((image) => (
@@ -17,4 +17,4 @@ function PropertyGallery({images}: PropertyGalleryProps): JSX.Element {
     </React.Fragment>
   );
 }
-export default PropertyGallery;
+export default PropertyPhotos;

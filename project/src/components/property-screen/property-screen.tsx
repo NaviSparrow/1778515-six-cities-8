@@ -3,15 +3,18 @@ import OfferReviewList from '../offer-review-list/offer-review-list';
 import {reviews} from '../../mocks/reviews';
 import {Offer} from '../../types/offer';
 import React from 'react';
-import PropertyGallery from '../property-gallery/property-gallery';
-import PropertyInsideList from '../property-inside-list/property-inside-list';
+import {Link} from 'react-router-dom';
+import PropertyPhotos from '../property-photos/property-photos';
+import PropertyGoodsList from '../property-goods-list/property-goods-list';
 import ReviewsForm from '../reviews-form/reviews-form';
+import {AppRoute} from '../../const';
 
 type PropertyScreenProps = {
   offer: Offer;
+  onSubmit: (reviewText: string, reviewRating: string) => void;
 }
 
-function PropertyScreen({offer}: PropertyScreenProps):JSX.Element {
+function PropertyScreen({offer, onSubmit}: PropertyScreenProps):JSX.Element {
   const {id, isPremium, rating, price, isFavorite, title, type, bedrooms, description, goods, host, maxAdults, images} = offer;
   const reviewsForOffer = reviews.filter((review) => review.id === id);
   return (
@@ -23,11 +26,11 @@ function PropertyScreen({offer}: PropertyScreenProps):JSX.Element {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
                   <a className="header__nav-link" href="#">
@@ -44,7 +47,7 @@ function PropertyScreen({offer}: PropertyScreenProps):JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <PropertyGallery images={images} />
+              <PropertyPhotos images={images} />
             </div>
           </div>
           <div className="property__container container">
@@ -87,7 +90,7 @@ function PropertyScreen({offer}: PropertyScreenProps):JSX.Element {
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
-                <PropertyInsideList goods={goods} />
+                <PropertyGoodsList goods={goods} />
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
@@ -107,7 +110,7 @@ function PropertyScreen({offer}: PropertyScreenProps):JSX.Element {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsForOffer.length}</span></h2>
                 <OfferReviewList reviews={reviewsForOffer} />
-                <ReviewsForm />
+                <ReviewsForm onSubmit={onSubmit} />
               </section>
             </div>
           </div>

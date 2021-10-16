@@ -1,18 +1,22 @@
 import {Offer} from '../../types/offer';
-import { NOT_ACTIVE_STATE} from '../../const';
 import {Link} from 'react-router-dom';
 
 type OfferCardProps = {
   offer: Offer
-  updateState: (value:number) => void;
+  updateState: (value:number | null) => void;
+  activeOfferid: number | null;
 }
 
-function OfferCard({offer, updateState}:OfferCardProps): JSX.Element {
+function OfferCard({offer, updateState, activeOfferid}:OfferCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, title, type} = offer;
   return (
     <article className="cities__place-card place-card"
-      onMouseEnter={() => updateState(id)}
-      onMouseLeave={() => updateState(NOT_ACTIVE_STATE)}
+      onMouseEnter={() => {
+        if (activeOfferid !== id) {
+          updateState(id);
+        }
+      }}
+      onMouseLeave={() => updateState(null)}
     >
       <div className={isPremium ? 'place-card__mark' : 'visually-hidden'}>
         <span>Premium</span>
