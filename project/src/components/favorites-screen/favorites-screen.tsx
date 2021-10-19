@@ -1,6 +1,6 @@
 import Logo from '../logo/logo';
 import {Offer} from '../../types/offer';
-import OffersList from '../offers-list/offers-list';
+import FavoritesOffersList from '../favorites-offers-list/favorites-offers-list';
 
 type FavoritesScreenProps = {
   offers: Offer[];
@@ -69,7 +69,7 @@ function FavoritesScreen({offers}: FavoritesScreenProps):JSX.Element {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    <OffersList offers={favoriteOffers} />
+                    <FavoritesOffersList offers={favoriteOffers} />
                   </div>
                 </li>
               </ul>

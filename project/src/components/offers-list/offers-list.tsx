@@ -1,16 +1,18 @@
 import {Offer} from '../../types/offer';
-import OfferCard from '../offer-card/offer-card';
 import React from 'react';
+import OfferCard from '../offer-card/offer-card';
 import {useState} from 'react';
 
 type OffersListProps = {
   offers: Offer[];
+  onOffersListItemHover: (activeItemid: number| null) => void;
 }
 
-function OffersList({offers}:OffersListProps):JSX.Element {
+function OffersList({offers, onOffersListItemHover}:OffersListProps):JSX.Element {
   const [activeOfferid, setActiveOfferid] = useState<number | null>(null);
   function updateState (value: number | null): void {
     setActiveOfferid(value);
+    onOffersListItemHover(value);
   }
   return (
     <React.Fragment>
