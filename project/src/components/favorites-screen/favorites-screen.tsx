@@ -1,13 +1,18 @@
 import Logo from '../logo/logo';
-import {Offer} from '../../types/offer';
 import FavoritesOffersList from '../favorites-offers-list/favorites-offers-list';
+import {State} from '../../types/state';
+import {connect, ConnectedProps} from 'react-redux';
+import FavoritesScreenEmpty from '../favorites-screen-empty/favorites-screen-empty';
 
-type FavoritesScreenProps = {
-  offers: Offer[];
-}
+const mapStateToProps = ({offersList}: State) => ({
+  offersList,
+});
 
-function FavoritesScreen({offers}: FavoritesScreenProps):JSX.Element {
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function FavoritesScreen({offersList}: PropsFromRedux):JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>
@@ -55,25 +60,11 @@ function FavoritesScreen({offers}: FavoritesScreenProps):JSX.Element {
           </div>
         </header>
 
-        <main className="page__main page__main--favorites">
+        <main className={`page__main page__main--favorites ${offersList === null ? 'page__main--favorites-empty': ''}`}>
           <div className="page__favorites-container container">
-            <section className="favorites">
-              <h1 className="favorites__title">Saved listing</h1>
-              <ul className="favorites__list">
-                <li className="favorites__locations-items">
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <a className="locations__item-link" href="#">
-                        <span>Amsterdam</span>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="favorites__places">
-                    <FavoritesOffersList offers={favoriteOffers} />
-                  </div>
-                </li>
-              </ul>
-            </section>
+            {offersList !== null
+              ? <FavoritesOffersList offersList={offersList.filter((offer) => offer.isFavorite)} />
+              : <FavoritesScreenEmpty />};
           </div>
         </main>
         <footer className="footer container">
@@ -86,4 +77,4 @@ function FavoritesScreen({offers}: FavoritesScreenProps):JSX.Element {
   );
 }
 
-export default FavoritesScreen;
+export default connector(FavoritesScreen);
