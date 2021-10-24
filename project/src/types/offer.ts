@@ -44,7 +44,7 @@ export type ImageWrapper = {
   image: string;
  }
 
-export type OfferType = Offer[] | null;
+export type OfferType = Offer[] | [];
 
 export type CityType = string;
 

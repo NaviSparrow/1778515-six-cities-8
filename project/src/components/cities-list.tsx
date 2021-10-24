@@ -1,4 +1,4 @@
-import {Cities, City } from '../const';
+import {City } from '../const';
 
 type CitiesListProps = {
   activeCity: string,
@@ -9,7 +9,7 @@ function CitiesList(props: CitiesListProps): JSX.Element {
   const {activeCity, onChangeCity} = props;
   return (
     <ul className="locations__list tabs__list">
-      {Cities.map((city: City) => (
+      {Object.values(City).map((city) => (
         <li className="locations__item" key={city}>
           <a className={`locations__item-link tabs__item ${activeCity === city ? 'tabs__item--active' : ''}`}
             href="#"
@@ -19,8 +19,8 @@ function CitiesList(props: CitiesListProps): JSX.Element {
           >
             <span>{city}</span>
           </a>
-        </li>
-      ))}
+        </li>),
+      )}
     </ul>
   );
 }

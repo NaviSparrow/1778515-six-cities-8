@@ -76,7 +76,7 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
           </div>
         </header>
 
-        <main className={`page__main page__main--index ${currentOffers === null ? 'page__main--index-empty': ''}`}>
+        <main className={`page__main page__main--index ${currentOffers.length === 0 ? 'page__main--index-empty': ''}`}>
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
@@ -87,7 +87,7 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
             </section>
           </div>
           <div className="cities">
-            {currentOffers !== null
+            {currentOffers.length !== 0
               ? <OffersList city={city} offersList={currentOffers} />
               : <MainScreenEmpty city={city} />};
           </div>

@@ -22,23 +22,16 @@ export enum City {
   Dusseldorf = 'Dusseldorf',
 }
 
-export const Cities: City[] = [
-  City.Paris,
-  City.Cologne,
-  City.Brussels,
-  City.Amsterdam,
-  City.Hamburg,
-  City.Dusseldorf,
-];
+export enum SortType {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow ='Price: high to low',
+  TopRated = 'Top rated first',
+}
 
 export const filterOffersByCity = (offersList: OfferType, city: CityType): OfferType=> {
-  if (offersList) {
-    const filteredOffers = offersList.filter((offer) => offer.city.name === city);
-    if (filteredOffers.length === 0) {
-      return null;
-    }
-    return filteredOffers;
-  } else {
-    return null;
+  if (!offersList) {
+    return [];
   }
+  return offersList.filter((offer) => offer.city.name === city);
 };

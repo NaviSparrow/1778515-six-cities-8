@@ -11,12 +11,7 @@ type OffersListProps = {
 
 function OffersList(props:OffersListProps):JSX.Element {
   const {city, offersList} = props;
-  // eslint-disable-next-line no-console
-  console.log(props);
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  function updateState (value: Offer | null): void {
-    setActiveOffer(value);
-  }
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -38,7 +33,7 @@ function OffersList(props:OffersListProps):JSX.Element {
           </ul>
         </form>
         <div className="cities__places-list places__list tabs__content">
-          {offersList.map((offer) => <OfferCard key={offer.id} offer={offer} updateState={updateState} activeOffer={activeOffer} />)}
+          {offersList.map((offer) => <OfferCard key={offer.id} offer={offer} updateState={setActiveOffer} activeOffer={activeOffer} />)}
         </div>
       </section>
       <div className="cities__right-section">

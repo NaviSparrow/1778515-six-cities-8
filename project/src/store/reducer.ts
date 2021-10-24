@@ -4,7 +4,7 @@ import {City} from '../const';
 
 const initialState = {
   city: City.Paris,
-  offersList: null,
+  offersList: [],
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
