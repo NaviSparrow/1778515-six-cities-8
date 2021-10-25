@@ -3,17 +3,17 @@ import {Link} from 'react-router-dom';
 
 type OfferCardProps = {
   offer: Offer
-  updateState: (value:number | null) => void;
-  activeOfferid: number | null;
+  updateState: (value: Offer | null) => void;
+  activeOffer: Offer | null;
 }
 
-function OfferCard({offer, updateState, activeOfferid}:OfferCardProps): JSX.Element {
+function OfferCard({offer, updateState, activeOffer}:OfferCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, title, type} = offer;
   return (
     <article className="cities__place-card place-card"
       onMouseEnter={() => {
-        if (activeOfferid !== id) {
-          updateState(id);
+        if (activeOffer?.id !== id) {
+          updateState(offer);
         }
       }}
       onMouseLeave={() => updateState(null)}

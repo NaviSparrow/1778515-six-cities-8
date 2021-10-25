@@ -1,4 +1,5 @@
 import {BrowserRouter, Route, RouteComponentProps, Switch} from 'react-router-dom';
+import {connect, ConnectedProps} from 'react-redux';
 import MainScreen from '../main-screen/main-screen';
 import AuthScreen from '../auth-screen/auth-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
@@ -6,20 +7,23 @@ import PropertyScreen from '../property-screen/property-screen';
 import NotFoundPage from '../not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Offer} from '../../types/offer';
+import {State} from '../../types/state';
 
-type AppScreenProps = {
-  offersCount: number;
-  offers: Offer[];
-}
+const mapStateToProps = ({offersList}: State) => ({
+  offersList,
+});
 
-function App({offersCount, offers}: AppScreenProps): JSX.Element {
+const connector = connect(mapStateToProps);
 
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function App(props: PropsFromRedux): JSX.Element {
+  const {offersList} = props;
   return(
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <MainScreen offersCount={offersCount} offers={offers} />;
+          <MainScreen />;
         </Route>
         <Route exact path={AppRoute.Auth}>
           <AuthScreen />
@@ -27,7 +31,7 @@ function App({offersCount, offers}: AppScreenProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          render={() => <FavoritesScreen offers={offers} />}
+          render={() => <FavoritesScreen />}
           authorizationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
@@ -36,7 +40,7 @@ function App({offersCount, offers}: AppScreenProps): JSX.Element {
           path={'/offer/:id'}
           render={(routeProps: RouteComponentProps<{id: string}>) => {
             const id =  routeProps.match.params.id;
-            const offer = offers.find((item) => item.id === parseInt(id, 10));
+            const offer = offersList?.find((item) => item.id === parseInt(id, 10));
             if (offer === undefined) {
               return <NotFoundPage />;
             }
@@ -58,5 +62,5 @@ function App({offersCount, offers}: AppScreenProps): JSX.Element {
     </BrowserRouter>
   );
 }
-
-export default App;
+export {App};
+export default connector(App);

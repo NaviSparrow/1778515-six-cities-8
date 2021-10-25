@@ -7,7 +7,7 @@ import useMap from '../../hooks/useMap';
 
 type MapProps = {
   offers: Offer[];
-  activeOffer:Offer | undefined;
+  activeOffer: Offer | null;
 }
 
 function Map(props: MapProps): JSX.Element {
