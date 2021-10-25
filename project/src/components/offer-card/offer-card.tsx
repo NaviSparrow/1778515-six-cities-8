@@ -8,7 +8,7 @@ type OfferCardProps = {
 }
 
 function OfferCard({offer, updateState, activeOffer}:OfferCardProps): JSX.Element {
-  const {id, isPremium, previewImage, price, isFavorite, title, type} = offer;
+  const {id, isPremium, previewImage, price, isFavorite, title, type, rating} = offer;
   return (
     <article className="cities__place-card place-card"
       onMouseEnter={() => {
@@ -43,7 +43,7 @@ function OfferCard({offer, updateState, activeOffer}:OfferCardProps): JSX.Elemen
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '40%'}}></span>
+            <span style={{width: `${rating * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
