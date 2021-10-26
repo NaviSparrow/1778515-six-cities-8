@@ -8,17 +8,29 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {State} from '../../types/state';
+import LoadingSpinner from '../loading-spinner/loading-spinner';
 
-const mapStateToProps = ({offerList}: State) => ({
+const mapStateToProps = ({offerList, authorizationStatus, isDataLoaded}: State) => ({
   offerList,
+  authorizationStatus,
+  isDataLoaded,
 });
+
 
 const connector = connect(mapStateToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
+const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;
+
 function App(props: PropsFromRedux): JSX.Element {
-  const {offerList} = props;
+  const {offerList, authorizationStatus, isDataLoaded} = props;
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return (
+      <LoadingSpinner />
+    );
+  }
   return(
     <BrowserRouter>
       <Switch>

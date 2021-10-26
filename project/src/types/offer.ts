@@ -17,7 +17,7 @@ export type Offer = {
     location: Location;
     name: string;
   }
-  description:string;
+  description: string;
   goods: string[];
   host: User;
   id: number;
