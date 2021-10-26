@@ -1,10 +1,17 @@
 import {CityType, Offer, OfferType} from './types/offer';
+import {OfferFromServer} from './types/offer-from-server';
 
 export enum AppRoute {
   Root = '/',
   Auth = '/login',
   Favorites = '/favorites',
   Room = '/offer/{id}',
+}
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export enum AuthorizationStatus {
@@ -54,4 +61,35 @@ export const getSortedOffers = (sortType: string, offers: Offer[]): Offer[] => {
       return offers.slice().sort(sortByRating);
     default: return offers;
   }
+};
+
+export const adaptToClient = (offers: OfferFromServer[]):Offer[] => {
+  const adaptedOffers:Offer[] = [];
+  offers.map((offer) => {
+    const adaptedOffer = Object.assign(
+      {},
+      offer,
+      {
+        host: {
+          avatarUrl: offer['host']['avatar_url'],
+          id: offer['host']['id'],
+          isPro: offer['host']['is_pro'],
+          name: offer['host']['name'],
+        },
+        isFavorite: offer['is_favorite'],
+        isPremium: offer['is_premium'],
+        maxAdults: offer['max_adults'],
+        previewImage: offer['preview_image'],
+      },
+    );
+    delete adaptedOffer['host']['avatar_url'];
+    delete adaptedOffer['host']['is_pro'];
+    delete adaptedOffer['is_favorite'];
+    delete adaptedOffer['is_premium'];
+    delete adaptedOffer['max_adults'];
+    delete adaptedOffer['preview_image'];
+
+    adaptedOffers.push(<Offer>adaptedOffer);
+  });
+  return adaptedOffers;
 };

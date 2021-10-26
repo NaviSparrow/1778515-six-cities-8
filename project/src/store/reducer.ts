@@ -1,10 +1,12 @@
 import {State} from '../types/state';
 import {Actions, ActionType} from '../types/action';
-import {City} from '../const';
+import {AuthorizationStatus, City} from '../const';
 
 const initialState = {
   city: City.Paris,
   offersList: [],
+  isDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -15,6 +17,10 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, offersList: action.payload};
     case ActionType.ResetMainScreen:
       return {...initialState};
+    case ActionType.RequireAuthorization:
+      return {...state, authorizationStatus: action.payload, isDataLoaded: true};
+    case ActionType.RequireLogout:
+      return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
     default: return state;
   }
 };
