@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
 import {SortType} from '../../const';
 
-type SortTypesProps = {
+type OfferSortListProps = {
   currentSort: string;
-  setCurrentSort: ((sort: string) => void);
+  onChangeSort: ((sort: string) => void);
 }
 
-function SortTypes(props: SortTypesProps):JSX.Element {
-  const {currentSort, setCurrentSort} = props;
+function OfferSortList(props: OfferSortListProps):JSX.Element {
+  const {currentSort, onChangeSort} = props;
 
-  const [isClicked, setisClicked] = useState<boolean>(false);
+  const [isPopupShown, setPopupShown] = useState<boolean>(false);
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0}
         onClick={() => {
-          setisClicked(!isClicked);
+          setPopupShown(!isPopupShown);
         }}
       >
         {currentSort}
@@ -23,11 +23,11 @@ function SortTypes(props: SortTypesProps):JSX.Element {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isClicked ? 'places__options--opened' : ''}`}>
+      <ul className={`places__options places__options--custom ${isPopupShown ? 'places__options--opened' : ''}`}>
         {Object.values(SortType).map((sort) => (
           <li key={sort} className={`places__option ${currentSort === sort ? 'places__option--active' : ''}`} tabIndex={0}
             onClick={() => {
-              setCurrentSort(sort);
+              onChangeSort(sort);
             }}
           >{sort}
           </li>
@@ -37,4 +37,4 @@ function SortTypes(props: SortTypesProps):JSX.Element {
   );
 }
 
-export default SortTypes;
+export default OfferSortList;

@@ -3,7 +3,7 @@ import React from 'react';
 import OfferCard from '../offer-card/offer-card';
 import {useState} from 'react';
 import Map from '../map/map';
-import SortTypes from '../sort-types/sort-types';
+import OfferSortList from '../offer-sort-list/offer-sort-list';
 import {SortType, getSortedOffers} from '../../const';
 
 type OffersListProps = {
@@ -15,20 +15,18 @@ function OffersList(props:OffersListProps):JSX.Element {
   const {city, offersList} = props;
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const [currentSort, setCurrentSort] = useState<string>(SortType.Popular);
-  // eslint-disable-next-line no-console
-  console.log(offersList);
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{offersList.length} places to stay in {city}</b>
-        <SortTypes currentSort={currentSort} setCurrentSort={setCurrentSort} />
+        <OfferSortList currentSort={currentSort} onChangeSort={setCurrentSort} />
         <div className="cities__places-list places__list tabs__content">
           {getSortedOffers(currentSort, offersList).map((offer) => (
             <OfferCard
               key={offer.id}
               offer={offer}
-              updateState={setActiveOffer}
+              onActiveOfferChange={setActiveOffer}
               activeOffer={activeOffer}
             />))}
         </div>

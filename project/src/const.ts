@@ -1,4 +1,4 @@
-import {CityType, Offer, OfferType} from './types/offer';
+import {CityType, Offer, OfferListType} from './types/offer';
 
 export enum AppRoute {
   Root = '/',
@@ -29,7 +29,7 @@ export enum SortType {
   TopRated = 'Top rated first',
 }
 
-export const filterOffersByCity = (offersList: OfferType, city: CityType): OfferType=> {
+export const filterOffersByCity = (offersList: OfferListType, city: CityType): OfferListType=> {
   if (!offersList) {
     return [];
   }
