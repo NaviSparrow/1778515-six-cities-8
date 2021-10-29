@@ -9,8 +9,8 @@ import PrivateRoute from '../private-route/private-route';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {State} from '../../types/state';
 
-const mapStateToProps = ({offersList}: State) => ({
-  offersList,
+const mapStateToProps = ({offerList}: State) => ({
+  offerList,
 });
 
 const connector = connect(mapStateToProps);
@@ -18,7 +18,7 @@ const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function App(props: PropsFromRedux): JSX.Element {
-  const {offersList} = props;
+  const {offerList} = props;
   return(
     <BrowserRouter>
       <Switch>
@@ -40,7 +40,7 @@ function App(props: PropsFromRedux): JSX.Element {
           path={'/offer/:id'}
           render={(routeProps: RouteComponentProps<{id: string}>) => {
             const id =  routeProps.match.params.id;
-            const offer = offersList?.find((item) => item.id === parseInt(id, 10));
+            const offer = offerList?.find((item) => item.id === parseInt(id, 10));
             if (offer === undefined) {
               return <NotFoundPage />;
             }

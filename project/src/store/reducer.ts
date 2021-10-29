@@ -4,7 +4,7 @@ import {City} from '../const';
 
 const initialState = {
   city: City.Paris,
-  offersList: [],
+  offerList: [],
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -12,7 +12,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.ChangeCity:
       return {...state, city: action.payload};
     case ActionType.FillOffersList:
-      return {...state, offersList: action.payload};
+      return {...state, offerList: action.payload};
     case ActionType.ResetMainScreen:
       return {...initialState};
     default: return state;

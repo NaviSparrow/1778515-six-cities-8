@@ -1,6 +1,6 @@
-import {CityType, OfferType} from './offer';
+import {CityType, OfferListType} from './offer';
 
 export type State = {
   city: CityType,
-  offersList: OfferType;
+  offerList: OfferListType;
 }

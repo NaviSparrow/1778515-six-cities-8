@@ -1,4 +1,4 @@
-import {CityType, Offer} from '../../types/offer';
+import {Offer} from '../../types/offer';
 import React from 'react';
 import FavoriteOfferCard from '../favorite-offer-card/favorite-offer-card';
 
@@ -7,14 +7,13 @@ type FavoritesOffersListProps = {
 }
 
 function FavoritesOffersList({offersList}:FavoritesOffersListProps):JSX.Element {
-  const setOfCities = new Set<CityType>();
-  offersList.map((offer) => setOfCities.add(offer.city.name));
-  const citiesArray = Array.from(setOfCities);
+  const cities = new Set(offersList.map((offer) => offer.city.name));
+  const uniqueCities = Array.from(cities);
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
-        {citiesArray.map((city) => {
+        {uniqueCities.map((city) => {
           const offersForCity = offersList.filter((offer) => offer.city.name === city);
           return (
             <li className="favorites__locations-items" key={city}>
