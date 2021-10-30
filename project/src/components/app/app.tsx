@@ -8,9 +8,15 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {State} from '../../types/state';
+<<<<<<< HEAD
 import Spinner from '../spinner/spinner';
 
 const mapStateToProps = ({offerList, authorizationStatus, isDataLoaded}: State) => ({
+=======
+import LoadingSpinner from '../loading-spinner/loading-spinner';
+
+const mapStateToProps = ({offersList, authorizationStatus, isDataLoaded}: State) => ({
+>>>>>>> 28163bb69472de78fdc1292089fd6a1404829d37
   offerList,
   authorizationStatus,
   isDataLoaded,
@@ -28,7 +34,11 @@ function App(props: PropsFromRedux): JSX.Element {
   const {offerList, authorizationStatus, isDataLoaded} = props;
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
+<<<<<<< HEAD
       <Spinner />
+=======
+      <LoadingSpinner />
+>>>>>>> 28163bb69472de78fdc1292089fd6a1404829d37
     );
   }
   return(
