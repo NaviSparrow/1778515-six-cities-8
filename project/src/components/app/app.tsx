@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, RouteComponentProps, Switch} from 'react-router-dom';
+import {Route, RouteComponentProps, Switch, Router as BrowserRouter} from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 import MainScreen from '../main-screen/main-screen';
 import AuthScreen from '../auth-screen/auth-screen';
@@ -9,6 +9,7 @@ import PrivateRoute from '../private-route/private-route';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {State} from '../../types/state';
 import Spinner from '../spinner/spinner';
+import browserHistory from '../../browser-history/browser-history';
 
 const mapStateToProps = ({offerList, authorizationStatus, isDataLoaded}: State) => ({
   offerList,
@@ -32,7 +33,7 @@ function App(props: PropsFromRedux): JSX.Element {
     );
   }
   return(
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.Root}>
           <MainScreen />;
