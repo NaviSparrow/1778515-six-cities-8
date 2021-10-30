@@ -4,15 +4,15 @@ import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import FavoritesScreenEmpty from '../favorites-screen-empty/favorites-screen-empty';
 
-const mapStateToProps = ({offersList}: State) => ({
-  offersList,
+const mapStateToProps = ({offerList}: State) => ({
+  offerList,
 });
 
 const connector = connect(mapStateToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function FavoritesScreen({offersList}: PropsFromRedux):JSX.Element {
+function FavoritesScreen({offerList}: PropsFromRedux):JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>
@@ -60,10 +60,10 @@ function FavoritesScreen({offersList}: PropsFromRedux):JSX.Element {
           </div>
         </header>
 
-        <main className={`page__main page__main--favorites ${offersList === null ? 'page__main--favorites-empty': ''}`}>
+        <main className={`page__main page__main--favorites ${offerList.length === 0 ? 'page__main--favorites-empty': ''}`}>
           <div className="page__favorites-container container">
-            {offersList !== null
-              ? <FavoritesOffersList offersList={offersList.filter((offer) => offer.isFavorite)} />
+            {offerList.length !== 0
+              ? <FavoritesOffersList offersList={offerList.filter((offer) => offer.isFavorite)} />
               : <FavoritesScreenEmpty />};
           </div>
         </main>

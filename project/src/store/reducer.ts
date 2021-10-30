@@ -4,7 +4,7 @@ import {AuthorizationStatus, City} from '../const';
 
 const initialState = {
   city: City.Paris,
-  offersList: [],
+  offerList: [],
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
 };
@@ -14,7 +14,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.ChangeCity:
       return {...state, city: action.payload};
     case ActionType.FillOffersList:
-      return {...state, offersList: action.payload};
+      return {...state, offerList: action.payload};
     case ActionType.ResetMainScreen:
       return {...initialState};
     case ActionType.RequireAuthorization:

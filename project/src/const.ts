@@ -1,4 +1,4 @@
-import {CityType, Offer, OfferType} from './types/offer';
+import {CityType, Offer, OfferListType} from './types/offer';
 import {OfferFromServer} from './types/offer-from-server';
 
 export enum AppRoute {
@@ -36,7 +36,7 @@ export enum SortType {
   TopRated = 'Top rated first',
 }
 
-export const filterOffersByCity = (offersList: OfferType, city: CityType): OfferType=> {
+export const filterOffersByCity = (offersList: OfferListType, city: CityType): OfferListType=> {
   if (!offersList) {
     return [];
   }
@@ -93,3 +93,4 @@ export const adaptToClient = (offers: OfferFromServer[]):Offer[] => {
   });
   return adaptedOffers;
 };
+

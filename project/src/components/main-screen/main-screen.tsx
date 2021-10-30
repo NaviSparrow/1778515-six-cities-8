@@ -11,9 +11,9 @@ import {changeCity} from '../../store/action';
 import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
 import {filterOffersByCity} from '../../const';
 
-const mapStateToProps = ({city, offersList}: State) => ({
+const mapStateToProps = ({city, offerList}: State) => ({
   city,
-  offersList,
+  offerList,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
@@ -27,8 +27,8 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function MainScreen(props: PropsFromRedux): JSX.Element {
-  const {city, offersList, onChangeCity} = props;
-  const currentOffers = filterOffersByCity(offersList, city);
+  const {city, offerList, onChangeCity} = props;
+  const currentOffers = filterOffersByCity(offerList, city);
   return (
     <>
       <div style={{display: 'none'}}>

@@ -11,7 +11,7 @@ import {State} from '../../types/state';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 
 const mapStateToProps = ({offersList, authorizationStatus, isDataLoaded}: State) => ({
-  offersList,
+  offerList,
   authorizationStatus,
   isDataLoaded,
 });
@@ -25,7 +25,7 @@ const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
 
 function App(props: PropsFromRedux): JSX.Element {
-  const {offersList, authorizationStatus, isDataLoaded} = props;
+  const {offerList, authorizationStatus, isDataLoaded} = props;
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
       <LoadingSpinner />
@@ -52,7 +52,7 @@ function App(props: PropsFromRedux): JSX.Element {
           path={'/offer/:id'}
           render={(routeProps: RouteComponentProps<{id: string}>) => {
             const id =  routeProps.match.params.id;
-            const offer = offersList?.find((item) => item.id === parseInt(id, 10));
+            const offer = offerList?.find((item) => item.id === parseInt(id, 10));
             if (offer === undefined) {
               return <NotFoundPage />;
             }
