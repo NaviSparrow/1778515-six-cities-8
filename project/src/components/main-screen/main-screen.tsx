@@ -88,7 +88,7 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
           </div>
           <div className="cities">
             {currentOffers.length !== 0
-              ? <OffersList city={city} offersList={currentOffers} />
+              ? <OffersList city={city} offerList={currentOffers} />
               : <MainScreenEmpty city={city} />};
           </div>
         </main>

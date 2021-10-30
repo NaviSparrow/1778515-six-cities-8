@@ -8,21 +8,21 @@ import {SortType, getSortedOffers} from '../../const';
 
 type OffersListProps = {
   city: CityType;
-  offersList: Offer[];
+  offerList: Offer[];
 }
 
 function OffersList(props:OffersListProps):JSX.Element {
-  const {city, offersList} = props;
+  const {city, offerList} = props;
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const [currentSort, setCurrentSort] = useState<string>(SortType.Popular);
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offersList.length} places to stay in {city}</b>
+        <b className="places__found">{offerList.length} places to stay in {city}</b>
         <OfferSortList currentSort={currentSort} onChangeSort={setCurrentSort} />
         <div className="cities__places-list places__list tabs__content">
-          {getSortedOffers(currentSort, offersList).map((offer) => (
+          {getSortedOffers(currentSort, offerList).map((offer) => (
             <OfferCard
               key={offer.id}
               offer={offer}
@@ -33,7 +33,7 @@ function OffersList(props:OffersListProps):JSX.Element {
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">
-          <Map offers={offersList} activeOffer={activeOffer} />
+          <Map offers={offerList} activeOffer={activeOffer} />
         </section>
       </div>
     </div>
