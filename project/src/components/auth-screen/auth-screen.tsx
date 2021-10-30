@@ -8,6 +8,7 @@ import {AppRoute, getRandomCity} from '../../const';
 import {State} from '../../types/state';
 import {changeCity} from '../../store/action';
 import {useHistory} from 'react-router-dom';
+import {CityType} from '../../types/offer';
 
 const mapStateToProps = ({city}: State) => ({
   city,
@@ -17,7 +18,7 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit(authData: AuthData) {
     dispatch(loginAction(authData));
   },
-  onChangeCity(city: string) {
+  onChangeCity(city: CityType) {
     dispatch(changeCity(city));
   },
 });
