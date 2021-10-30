@@ -93,3 +93,12 @@ export const adaptToClient = (offers: OfferFromServer[]):Offer[] => {
   });
   return adaptedOffers;
 };
+
+export const getRandomCity = (): CityType => {
+  const cities = Object.values(City);
+  const randomInt = Math.floor(Math.random() * cities.length);
+  return cities[randomInt];
+};
+
+// eslint-disable-next-line no-console
+console.log(getRandomCity());

@@ -1,6 +1,48 @@
 import Logo from '../logo/logo';
+import {ThunkAppDispatch} from '../../types/action';
+import {useRef, FormEvent} from 'react';
+import {AuthData} from '../../types/auth-data';
+import {loginAction} from '../../store/api-actions';
+import {connect, ConnectedProps} from 'react-redux';
+import {AppRoute, getRandomCity} from '../../const';
+import {State} from '../../types/state';
+import {changeCity} from '../../store/action';
+import {useHistory} from 'react-router-dom';
 
-function AuthScreen():JSX.Element {
+const mapStateToProps = ({city}: State) => ({
+  city,
+});
+
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  onSubmit(authData: AuthData) {
+    dispatch(loginAction(authData));
+  },
+  onChangeCity(city: string) {
+    dispatch(changeCity(city));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function AuthScreen(props: PropsFromRedux):JSX.Element {
+  const {onSubmit, onChangeCity} = props;
+  const randomCity = getRandomCity();
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const history = useHistory();
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      onSubmit({
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      });
+    }
+  };
+
   return (
     <>
       <div style={{display: 'none'}}>
@@ -36,15 +78,19 @@ function AuthScreen():JSX.Element {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" action="#" method="post">
+              <form className="login__form form" action="#" method="post"
+                onSubmit={handleSubmit}
+              >
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
-                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required/>
+                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required
+                    ref={loginRef}
+                  />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input className="login__input form__input" type="password" name="password" placeholder="Password"
-                    required
+                  <input className="login__input form__input" type="password" name="password" placeholder="Password" required
+                    ref={passwordRef}
                   />
                 </div>
                 <button className="login__submit form__submit button" type="submit">Sign in</button>
@@ -52,8 +98,13 @@ function AuthScreen():JSX.Element {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <a className="locations__item-link" href="#">
-                  <span>Amsterdam</span>
+                <a className="locations__item-link" href="#"
+                  onClick={() => {
+                    onChangeCity(randomCity);
+                    history.push(AppRoute.Root);
+                  }}
+                >
+                  <span>{randomCity}</span>
                 </a>
               </div>
             </section>
@@ -64,4 +115,5 @@ function AuthScreen():JSX.Element {
   );
 }
 
-export default AuthScreen;
+export {AuthScreen};
+export default connector(AuthScreen);
