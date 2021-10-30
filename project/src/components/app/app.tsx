@@ -8,7 +8,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {State} from '../../types/state';
-import LoadingSpinner from '../loading-spinner/loading-spinner';
+import Spinner from '../spinner/spinner';
 
 const mapStateToProps = ({offerList, authorizationStatus, isDataLoaded}: State) => ({
   offerList,
@@ -28,7 +28,7 @@ function App(props: PropsFromRedux): JSX.Element {
   const {offerList, authorizationStatus, isDataLoaded} = props;
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
-      <LoadingSpinner />
+      <Spinner />
     );
   }
   return(
