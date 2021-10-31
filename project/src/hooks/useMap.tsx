@@ -7,7 +7,6 @@ function useMap(
   city: Offer['city'],
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
-
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
       const instance = new Map(mapRef.current, {

@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   },
 });
 
-const connector = connect(mapDispatchToProps);
+const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function LoggedBar(props: PropsFromRedux):JSX.Element {

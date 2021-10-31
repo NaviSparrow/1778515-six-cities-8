@@ -8,6 +8,9 @@ import {changeCity} from '../../store/action';
 import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
 import {filterOffersByCity} from '../../const';
 import ScreenHeader from '../screen-header/screen-header';
+import Map from '../map/map';
+import React, {useState} from 'react';
+import {Offer} from '../../types/offer';
 
 const mapStateToProps = ({city, offerList}: State) => ({
   city,
@@ -26,6 +29,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function MainScreen(props: PropsFromRedux): JSX.Element {
   const {city, offerList, onChangeCity} = props;
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const currentOffers = filterOffersByCity(offerList, city);
   return (
     <>
@@ -63,9 +67,16 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
             </section>
           </div>
           <div className="cities">
-            {currentOffers.length !== 0
-              ? <OffersList city={city} offerList={currentOffers} />
-              : <MainScreenEmpty city={city} />};
+            <div className={`cities__places-container ${currentOffers.length === 0 ? 'cities__places-container--empty' : ''} container`}>
+              {currentOffers.length !== 0
+                ? <OffersList city={city} offerList={currentOffers} onActiveOfferChange={setActiveOffer} />
+                : <MainScreenEmpty city={city} />};
+              <div className="cities__right-section">
+                {currentOffers.length !== 0
+                  ? <Map offers={currentOffers} activeOffer={activeOffer} />
+                  : ''};
+              </div>
+            </div>
           </div>
         </main>
       </div>
