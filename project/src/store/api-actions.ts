@@ -3,7 +3,7 @@ import {AuthData} from '../types/auth-data';
 import {OfferFromServer} from '../types/offer-from-server';
 import {AuthInfoFromServer} from '../types/auth-info-from-server';
 import {dropToken, saveToken} from '../services/token';
-import {saveEmail} from '../services/email';
+import {dropEmail, saveEmail} from '../services/email';
 import {
   adaptedToClientAuthInfo,
   adaptedToClientOfferList,
@@ -46,5 +46,6 @@ export const logoutAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     api.delete(APIRoute.Logout);
     dropToken();
+    dropEmail();
     dispatch(requireLogout());
   };

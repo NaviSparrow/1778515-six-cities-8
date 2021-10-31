@@ -8,6 +8,7 @@ import {changeCity} from '../../store/action';
 import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
 import {filterOffersByCity} from '../../const';
 import ScreenHeader from '../screen-header/screen-header';
+
 const mapStateToProps = ({city, offerList}: State) => ({
   city,
   offerList,

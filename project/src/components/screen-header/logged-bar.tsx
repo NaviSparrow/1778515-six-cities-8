@@ -1,10 +1,21 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {getEmail} from '../../services/email';
+import {ThunkAppDispatch} from '../../types/action';
+import {logoutAction} from '../../store/api-actions';
+import {connect, ConnectedProps} from 'react-redux';
 
-function LoggedBar():JSX.Element {
-  // eslint-disable-next-line no-console
-  console.log(getEmail());
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  onLogout() {
+    dispatch(logoutAction());
+  },
+});
+
+const connector = connect(mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function LoggedBar(props: PropsFromRedux):JSX.Element {
+  const {onLogout} = props;
   return (
     <>
       <li className="header__nav-item user">
@@ -15,7 +26,12 @@ function LoggedBar():JSX.Element {
         </Link>
       </li>
       <li className="header__nav-item">
-        <a className="header__nav-link" href="#">
+        <a className="header__nav-link" href="#"
+          onClick={(evt) => {
+            evt.preventDefault();
+            onLogout();
+          }}
+        >
           <span className="header__signout">Sign out</span>
         </a>
       </li>
@@ -23,4 +39,5 @@ function LoggedBar():JSX.Element {
   );
 }
 
-export default LoggedBar;
+export {LoggedBar};
+export default connector(LoggedBar);
