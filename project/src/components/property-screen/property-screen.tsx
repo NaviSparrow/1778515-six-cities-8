@@ -1,13 +1,11 @@
-import Logo from '../logo/logo';
 import OfferReviewList from '../offer-review-list/offer-review-list';
 import {reviews} from '../../mocks/reviews';
 import {Offer} from '../../types/offer';
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropertyPhotos from '../property-photos/property-photos';
 import PropertyGoodsList from '../property-goods-list/property-goods-list';
 import ReviewsForm from '../reviews-form/reviews-form';
-import {AppRoute} from '../../const';
+import ScreenHeader from '../screen-header/screen-header';
 
 type PropertyScreenProps = {
   offer: Offer;
@@ -19,29 +17,7 @@ function PropertyScreen({offer, onSubmit}: PropertyScreenProps):JSX.Element {
   const reviewsForOffer = reviews.filter((review) => review.id === id);
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <Logo/>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <ScreenHeader />
 
       <main className="page__main page__main--property">
         <section className="property">

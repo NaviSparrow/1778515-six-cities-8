@@ -38,8 +38,15 @@ function App(props: PropsFromRedux): JSX.Element {
         <Route exact path={AppRoute.Root}>
           <MainScreen />;
         </Route>
-        <Route exact path={AppRoute.Auth}>
-          <AuthScreen />
+        <Route
+          exact
+          path={AppRoute.Auth}
+          render={({history}) => (
+            <AuthScreen
+              onRandomCityClick={() => history.push(AppRoute.Root)}
+            />
+          )}
+        >
         </Route>
         <PrivateRoute
           exact

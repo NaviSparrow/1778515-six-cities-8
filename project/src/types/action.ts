@@ -3,6 +3,7 @@ import {
   fillOffersList,
   requireAuthorization,
   requireLogout,
+  redirectToRoute,
   resetMainScreen
 } from '../store/action';
 import {ThunkAction, ThunkDispatch} from '@reduxjs/toolkit';
@@ -15,6 +16,7 @@ export enum ActionType {
   ResetMainScreen = 'main/reset',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
+  RedirectToRoute = 'main/redirectToRoute',
 }
 
 export type Actions =
@@ -23,6 +25,7 @@ export type Actions =
   | ReturnType<typeof resetMainScreen>
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>
+  | ReturnType<typeof redirectToRoute>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

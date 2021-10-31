@@ -1,15 +1,17 @@
-import Logo from '../logo/logo';
 import {ThunkAppDispatch} from '../../types/action';
 import {useRef, FormEvent} from 'react';
-import {AuthData} from '../../types/auth-data';
-import {loginAction} from '../../store/api-actions';
 import {connect, ConnectedProps} from 'react-redux';
-import {AppRoute, getRandomCity} from '../../const';
-import {State} from '../../types/state';
+import Logo from '../logo/logo';
+import {loginAction} from '../../store/api-actions';
+import {getRandomCity} from '../../const';
 import {changeCity} from '../../store/action';
-import {useHistory} from 'react-router-dom';
+import {AuthData} from '../../types/auth-data';
+import {State} from '../../types/state';
 import {CityType} from '../../types/offer';
 
+type AuthScreenProps = {
+  onRandomCityClick: () => void;
+}
 const mapStateToProps = ({city}: State) => ({
   city,
 });
@@ -26,13 +28,13 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & AuthScreenProps
 
-function AuthScreen(props: PropsFromRedux):JSX.Element {
-  const {onSubmit, onChangeCity} = props;
+function AuthScreen(props: ConnectedComponentProps):JSX.Element {
+  const {onSubmit, onChangeCity, onRandomCityClick} = props;
   const randomCity = getRandomCity();
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const history = useHistory();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -102,7 +104,7 @@ function AuthScreen(props: PropsFromRedux):JSX.Element {
                 <a className="locations__item-link" href="#"
                   onClick={() => {
                     onChangeCity(randomCity);
-                    history.push(AppRoute.Root);
+                    onRandomCityClick();
                   }}
                 >
                   <span>{randomCity}</span>
