@@ -1,8 +1,8 @@
-import Logo from '../logo/logo';
 import FavoritesOffersList from '../favorites-offers-list/favorites-offers-list';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import FavoritesScreenEmpty from '../favorites-screen-empty/favorites-screen-empty';
+import ScreenHeader from '../screen-header/screen-header';
 
 const mapStateToProps = ({offerList}: State) => ({
   offerList,
@@ -36,29 +36,7 @@ function FavoritesScreen({offerList}: PropsFromRedux):JSX.Element {
       </div>
 
       <div className="page">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <Logo />
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </a>
-                  </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <ScreenHeader />
 
         <main className={`page__main page__main--favorites ${offerList.length === 0 ? 'page__main--favorites-empty': ''}`}>
           <div className="page__favorites-container container">

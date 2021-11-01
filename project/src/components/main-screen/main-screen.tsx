@@ -1,8 +1,5 @@
-import {AppRoute} from '../../const';
 import OffersList from '../offers-list/offers-list';
-import Logo from '../logo/logo';
 import CitiesList from '../cities-list';
-import {Link} from 'react-router-dom';
 import {State} from '../../types/state';
 import {Dispatch} from '@reduxjs/toolkit';
 import {Actions} from '../../types/action';
@@ -10,6 +7,10 @@ import {connect, ConnectedProps} from 'react-redux';
 import {changeCity} from '../../store/action';
 import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
 import {filterOffersByCity} from '../../const';
+import ScreenHeader from '../screen-header/screen-header';
+import Map from '../map/map';
+import React, {useState} from 'react';
+import {Offer} from '../../types/offer';
 
 const mapStateToProps = ({city, offerList}: State) => ({
   city,
@@ -28,6 +29,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function MainScreen(props: PropsFromRedux): JSX.Element {
   const {city, offerList, onChangeCity} = props;
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const currentOffers = filterOffersByCity(offerList, city);
   return (
     <>
@@ -52,29 +54,7 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
       </div>
 
       <div className="page page--gray page--main">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <Logo />
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </Link>
-                  </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <ScreenHeader />
 
         <main className={`page__main page__main--index ${currentOffers.length === 0 ? 'page__main--index-empty': ''}`}>
           <h1 className="visually-hidden">Cities</h1>
@@ -87,9 +67,16 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
             </section>
           </div>
           <div className="cities">
-            {currentOffers.length !== 0
-              ? <OffersList city={city} offerList={currentOffers} />
-              : <MainScreenEmpty city={city} />};
+            <div className={`cities__places-container ${currentOffers.length === 0 ? 'cities__places-container--empty' : ''} container`}>
+              {currentOffers.length !== 0
+                ? <OffersList city={city} offerList={currentOffers} onActiveOfferChange={setActiveOffer} />
+                : <MainScreenEmpty city={city} />};
+              <div className="cities__right-section">
+                {currentOffers.length !== 0
+                  ? <Map offers={currentOffers} activeOffer={activeOffer} />
+                  : ''};
+              </div>
+            </div>
           </div>
         </main>
       </div>

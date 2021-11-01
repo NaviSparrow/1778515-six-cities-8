@@ -1,5 +1,7 @@
 import {CityType, Offer, OfferListType} from './types/offer';
 import {OfferFromServer} from './types/offer-from-server';
+import {AdaptedAuthInfoType, AuthInfo} from './types/auth-info';
+import {AuthInfoFromServer} from './types/auth-info-from-server';
 
 export enum AppRoute {
   Root = '/',
@@ -63,7 +65,7 @@ export const getSortedOffers = (sortType: string, offers: Offer[]): Offer[] => {
   }
 };
 
-export const adaptToClient = (offers: OfferFromServer[]):Offer[] => {
+export const adaptedToClientOfferList = (offers: OfferFromServer[]):Offer[] => {
   const adaptedOffers:Offer[] = [];
   offers.map((offer) => {
     const adaptedOffer = Object.assign(
@@ -92,4 +94,25 @@ export const adaptToClient = (offers: OfferFromServer[]):Offer[] => {
     adaptedOffers.push(<Offer>adaptedOffer);
   });
   return adaptedOffers;
+};
+
+export const adaptedToClientAuthInfo = (serverInfo:AuthInfoFromServer):AuthInfo => {
+  const adaptedInfo: AdaptedAuthInfoType = Object.assign(
+    {},
+    serverInfo,
+    {
+      avatarUrl: serverInfo['avatar_url'],
+      isPro: serverInfo['is_pro'],
+    },
+  );
+  delete adaptedInfo['avatar_url'];
+  delete adaptedInfo['is_pro'];
+
+  return adaptedInfo;
+};
+
+export const getRandomCity = (): CityType => {
+  const cities = Object.values(City);
+  const randomInt = Math.floor(Math.random() * cities.length);
+  return cities[randomInt];
 };

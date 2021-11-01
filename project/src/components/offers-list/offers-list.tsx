@@ -2,41 +2,32 @@ import {CityType, Offer} from '../../types/offer';
 import React from 'react';
 import OfferCard from '../offer-card/offer-card';
 import {useState} from 'react';
-import Map from '../map/map';
 import OfferSortList from '../offer-sort-list/offer-sort-list';
 import {SortType, getSortedOffers} from '../../const';
 
 type OffersListProps = {
   city: CityType;
   offerList: Offer[];
+  onActiveOfferChange: (value: Offer | null) => void;
 }
 
 function OffersList(props:OffersListProps):JSX.Element {
-  const {city, offerList} = props;
-  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+  const {city, offerList, onActiveOfferChange} = props;
   const [currentSort, setCurrentSort] = useState<string>(SortType.Popular);
   return (
-    <div className="cities__places-container container">
-      <section className="cities__places places">
-        <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offerList.length} places to stay in {city}</b>
-        <OfferSortList currentSort={currentSort} onChangeSort={setCurrentSort} />
-        <div className="cities__places-list places__list tabs__content">
-          {getSortedOffers(currentSort, offerList).map((offer) => (
-            <OfferCard
-              key={offer.id}
-              offer={offer}
-              onActiveOfferChange={setActiveOffer}
-              activeOffer={activeOffer}
-            />))}
-        </div>
-      </section>
-      <div className="cities__right-section">
-        <section className="cities__map map">
-          <Map offers={offerList} activeOffer={activeOffer} />
-        </section>
+    <section className="cities__places places">
+      <h2 className="visually-hidden">Places</h2>
+      <b className="places__found">{offerList.length} places to stay in {city}</b>
+      <OfferSortList currentSort={currentSort} onChangeSort={setCurrentSort} />
+      <div className="cities__places-list places__list tabs__content">
+        {getSortedOffers(currentSort, offerList).map((offer) => (
+          <OfferCard
+            key={offer.id}
+            offer={offer}
+            onActiveOfferChange={onActiveOfferChange}
+          />))}
       </div>
-    </div>
+    </section>
   );
 }
 
