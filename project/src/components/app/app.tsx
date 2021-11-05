@@ -58,18 +58,13 @@ function App(props: PropsFromRedux): JSX.Element {
           exact
           path={'/offer/:id'}
           render={(routeProps: RouteComponentProps<{id: string}>) => {
-            const id =  routeProps.match.params.id;
-            const offer = offerList?.find((item) => item.id === parseInt(id, 10));
+            const id: number =  parseInt(routeProps.match.params.id, 10);
+            const offer = offerList?.find((item) => item.id === id);
             if (offer === undefined) {
               return <NotFoundPage />;
             }
             return (
-              <PropertyScreen
-                offer={offer}
-                onSubmit={() => {
-                  throw new Error('Function \'onSubmit\' isn\'t implemented.');
-                }}
-              />
+              <PropertyScreen id={id} />
             );
           }}
         >

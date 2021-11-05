@@ -1,4 +1,4 @@
-import {Email} from '../types/auth-info';
+import {Email} from '../types/auth-info-type';
 
 const AUTH_EMAIL = 'six-cities-user-email';
 

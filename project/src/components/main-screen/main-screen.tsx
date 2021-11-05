@@ -7,7 +7,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {changeCity} from '../../store/action';
 import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
 import {filterOffersByCity} from '../../const';
-import ScreenHeader from '../screen-header/screen-header';
+import ScreenHeader from '../header/screen-header';
 import Map from '../map/map';
 import React, {useState} from 'react';
 import {Offer} from '../../types/offer';
@@ -31,6 +31,7 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
   const {city, offerList, onChangeCity} = props;
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const currentOffers = filterOffersByCity(offerList, city);
+  const styleForMap = '762px';
   return (
     <>
       <div style={{display: 'none'}}>
@@ -73,7 +74,7 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
                 : <MainScreenEmpty city={city} />};
               <div className="cities__right-section">
                 {currentOffers.length !== 0
-                  ? <Map offers={currentOffers} activeOffer={activeOffer} />
+                  ? <section className="cities__map map"><Map offers={currentOffers} activeOffer={activeOffer} styleForMap={styleForMap} /></section>
                   : ''};
               </div>
             </div>

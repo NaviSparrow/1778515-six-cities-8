@@ -1,19 +1,22 @@
 import {CityType, Offer, OfferListType} from './types/offer';
 import {OfferFromServer} from './types/offer-from-server';
-import {AdaptedAuthInfoType, AuthInfo} from './types/auth-info';
-import {AuthInfoFromServer} from './types/auth-info-from-server';
+import {AdaptedAuthInfoType, AuthInfoType} from './types/auth-info-type';
+import {AuthInfoFromServerType} from './types/auth-info-from-server-type';
+import {ReviewFromServerType} from './types/review-from-server-type';
+import {ReviewType} from './types/review-type';
 
 export enum AppRoute {
   Root = '/',
   Auth = '/login',
   Favorites = '/favorites',
-  Room = '/offer/{id}',
 }
 
 export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Room = '/offer',
+  Comments = '/comments'
 }
 
 export enum AuthorizationStatus {
@@ -65,38 +68,40 @@ export const getSortedOffers = (sortType: string, offers: Offer[]): Offer[] => {
   }
 };
 
-export const adaptedToClientOfferList = (offers: OfferFromServer[]):Offer[] => {
-  const adaptedOffers:Offer[] = [];
-  offers.map((offer) => {
-    const adaptedOffer = Object.assign(
-      {},
-      offer,
-      {
-        host: {
-          avatarUrl: offer['host']['avatar_url'],
-          id: offer['host']['id'],
-          isPro: offer['host']['is_pro'],
-          name: offer['host']['name'],
-        },
-        isFavorite: offer['is_favorite'],
-        isPremium: offer['is_premium'],
-        maxAdults: offer['max_adults'],
-        previewImage: offer['preview_image'],
+export const adaptedToClientOffer = (offer: OfferFromServer):Offer => {
+  const adaptedOffer = Object.assign(
+    {},
+    offer,
+    {
+      host: {
+        avatarUrl: offer['host']['avatar_url'],
+        id: offer['host']['id'],
+        isPro: offer['host']['is_pro'],
+        name: offer['host']['name'],
       },
-    );
-    delete adaptedOffer['host']['avatar_url'];
-    delete adaptedOffer['host']['is_pro'];
-    delete adaptedOffer['is_favorite'];
-    delete adaptedOffer['is_premium'];
-    delete adaptedOffer['max_adults'];
-    delete adaptedOffer['preview_image'];
+      isFavorite: offer['is_favorite'],
+      isPremium: offer['is_premium'],
+      maxAdults: offer['max_adults'],
+      previewImage: offer['preview_image'],
+    },
+  );
+  delete adaptedOffer['host']['avatar_url'];
+  delete adaptedOffer['host']['is_pro'];
+  delete adaptedOffer['is_favorite'];
+  delete adaptedOffer['is_premium'];
+  delete adaptedOffer['max_adults'];
+  delete adaptedOffer['preview_image'];
 
-    adaptedOffers.push(<Offer>adaptedOffer);
-  });
-  return adaptedOffers;
+  return adaptedOffer as Offer;
 };
 
-export const adaptedToClientAuthInfo = (serverInfo:AuthInfoFromServer):AuthInfo => {
+export const adaptedToClientOfferList = (offerList: OfferFromServer[]):Offer[] => {
+  const adaptedOfferList:Offer[] = [];
+  offerList.map((offer) => adaptedOfferList.push(adaptedToClientOffer(offer)));
+  return adaptedOfferList;
+};
+
+export const adaptedToClientAuthInfo = (serverInfo:AuthInfoFromServerType):AuthInfoType => {
   const adaptedInfo: AdaptedAuthInfoType = Object.assign(
     {},
     serverInfo,
@@ -109,6 +114,30 @@ export const adaptedToClientAuthInfo = (serverInfo:AuthInfoFromServer):AuthInfo 
   delete adaptedInfo['is_pro'];
 
   return adaptedInfo;
+};
+
+export const adaptedToClientReviewsList = (reviewsList: ReviewFromServerType[]):ReviewType[] => {
+  const adaptedReviewsList: ReviewType[] = [];
+  reviewsList.map((review) => {
+    const adaptedReview = Object.assign(
+      {},
+      review,
+      {
+        user: {
+          avatarUrl: review['user']['avatar_url'],
+          id: review['user']['id'],
+          isPro: review['user']['is_pro'],
+          name: review['user']['name'],
+        },
+      },
+    );
+    delete adaptedReview['user']['avatar_url'];
+    delete adaptedReview['user']['is_pro'];
+
+    adaptedReviewsList.push(adaptedReview as ReviewType);
+  });
+
+  return adaptedReviewsList;
 };
 
 export const getRandomCity = (): CityType => {

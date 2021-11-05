@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useRef} from 'react';
 import leaflet, {LayerGroup, Marker} from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import {Offer} from '../../types/offer';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
@@ -8,10 +9,11 @@ import useMap from '../../hooks/useMap';
 type MapProps = {
   offers: Offer[];
   activeOffer: Offer | null;
+  styleForMap: string;
 }
 
 function Map(props: MapProps): JSX.Element {
-  const {offers, activeOffer} = props;
+  const {offers, activeOffer, styleForMap} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, offers[0].city);
 
@@ -57,13 +59,7 @@ function Map(props: MapProps): JSX.Element {
   }, [center, map]);
 
   return (
-    <section className="cities__map map">
-      <div
-        style={{height: '762px'}}
-        ref={mapRef}
-      >
-      </div>
-    </section>);
+    <div style={{height: styleForMap}} ref={mapRef}></div>);
 }
 
 export default Map;

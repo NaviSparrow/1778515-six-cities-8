@@ -1,31 +1,60 @@
 import React, {ChangeEvent, FormEvent} from 'react';
+import {connect, ConnectedProps} from 'react-redux';
 import {useState} from 'react';
 import ReviewsFormRating from '../reviews-form-rating/reviews-form-rating';
+import {postNewReviewAction} from '../../store/api-actions';
+import {State} from '../../types/state';
+import {ThunkAppDispatch} from '../../types/action';
+import {ReviewPostType} from '../../types/review-post-type';
 
-type ReviewsFormProps = {
-  onSubmit: (reviewText: string, reviewRating: string) => void;
-}
+const mapStateToProps = ({expendedOffer}: State) => ({
+  expendedOffer,
+});
 
-function ReviewsForm({onSubmit}: ReviewsFormProps):JSX.Element {
-  const [reviewRating, setReviewRating] = useState('0');
-  const [reviewText, setReviewText] = useState('');
-  function updateReviewRating (value:string):void {
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  onSubmit({comment, rating, id}: ReviewPostType) {
+    dispatch(postNewReviewAction({comment, rating, id}));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+
+function ReviewsForm({onSubmit, expendedOffer}: PropsFromRedux):JSX.Element {
+  const [reviewRating, setReviewRating] = useState(0);
+  const [reviewComment, setReviewComment] = useState('');
+
+  function updateReviewRating (value:number):void {
     setReviewRating(value);
   }
+
+  const handleSubmit = (evt:FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    onSubmit({
+      comment: reviewComment,
+      rating: reviewRating,
+      id: expendedOffer?.id,
+    });
+    setReviewComment('');
+    setReviewRating(0);
+  };
+
+  const isReviewValid = (comment:string, rating: number):boolean => (comment.length > 50 && comment.length < 300) && rating !== 0;
+
   return (
     <form
       className="reviews__form form"
       action="#"
       method="post"
-      onSubmit={(evt:FormEvent<HTMLFormElement>) => {
-        evt.preventDefault();
-        onSubmit(reviewText, reviewRating);
-      }}
+      onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <ReviewsFormRating updateReviewRating={updateReviewRating} />
       <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={({target}: ChangeEvent<HTMLTextAreaElement>) => setReviewText(target.value)}
+        value={reviewComment}
+        onChange={({target}: ChangeEvent<HTMLTextAreaElement>) => setReviewComment(target.value)}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -33,10 +62,12 @@ function ReviewsForm({onSubmit}: ReviewsFormProps):JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isReviewValid(reviewComment, reviewRating)}>
+          Submit
+        </button>
       </div>
     </form>
   );
 }
 
-export default ReviewsForm;
+export default connector(ReviewsForm);

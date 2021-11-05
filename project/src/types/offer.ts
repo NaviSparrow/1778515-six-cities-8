@@ -1,3 +1,4 @@
+
 export type Location = {
   latitude: number;
   longitude: number;
@@ -33,18 +34,17 @@ export type Offer = {
   type: string;
 }
 
-export type Review = {
-  comment: string;
-  date: string;
-  id: number;
-  rating: number;
-  user: User;
-}
 export type ImageWrapper = {
   image: string;
  }
 
 export type OfferListType = Offer[] | [];
 
+export type ExpendedOfferType = Offer | null;
+
 export type CityType = string;
+
+export type idType = {
+  id: number;
+}
 
