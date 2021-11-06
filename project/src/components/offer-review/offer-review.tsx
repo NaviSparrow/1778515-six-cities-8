@@ -1,8 +1,8 @@
-import {Review} from '../../types/offer';
 import dayjs from 'dayjs';
+import {ReviewType} from '../../types/review-type';
 
 type OfferReviewProps = {
-  review: Review;
+  review: ReviewType;
 }
 
 const formatDate = (date:string, format:string) => dayjs(date).format(format).toString();
@@ -24,7 +24,7 @@ function OfferReview({review}: OfferReviewProps):JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${rating}%`}}></span>
+            <span style={{width: `${rating * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

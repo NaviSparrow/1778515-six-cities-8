@@ -1,5 +1,5 @@
 import {Token} from '../services/token';
-import {AuthInfoFromServer} from './auth-info-from-server';
+import {AuthInfoFromServerType} from './auth-info-from-server-type';
 
 export type AvatarURL = string;
 export type Email = string;
@@ -7,7 +7,7 @@ export type id = number
 export type isPro = boolean;
 export type Name = string;
 
-export type AuthInfo = {
+export type AuthInfoType = {
   avatarUrl?: AvatarURL,
   email: Email,
   id: id,
@@ -16,5 +16,5 @@ export type AuthInfo = {
   token: Token
 };
 
-export type AdaptedAuthInfoType = AuthInfoFromServer & { avatarUrl: AvatarURL | undefined, isPro: isPro | undefined };
+export type AdaptedAuthInfoType = AuthInfoFromServerType & { avatarUrl: AvatarURL | undefined, isPro: isPro | undefined };
 

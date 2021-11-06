@@ -2,7 +2,7 @@ import FavoritesOffersList from '../favorites-offers-list/favorites-offers-list'
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import FavoritesScreenEmpty from '../favorites-screen-empty/favorites-screen-empty';
-import ScreenHeader from '../screen-header/screen-header';
+import ScreenHeader from '../header/screen-header';
 
 const mapStateToProps = ({offerList}: State) => ({
   offerList,
