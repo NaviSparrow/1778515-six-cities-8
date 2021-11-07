@@ -16,13 +16,15 @@ import {
 } from '../const';
 import {
   fillOffersList,
-  getExpendedOffer, getNearbyOffersList,
+  getExpendedOffer,
+  getNearbyOffersList,
   getReviewsList,
   redirectToRoute,
   requireAuthorization,
   requireLogout
 } from './action';
 import {ReviewPostType} from '../types/review-post-type';
+import {AxiosResponse} from 'axios';
 
 export const fetchOffersAction = ():ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -34,11 +36,14 @@ export const fetchOffersAction = ():ThunkActionResult =>
     ));
   };
 
+
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     await api.get(APIRoute.Login)
-      .then(() => {
-        dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      .then((response:AxiosResponse<AuthInfoFromServerType>) => {
+        response.data === undefined
+          ? dispatch(requireAuthorization(AuthorizationStatus.NoAuth))
+          : dispatch(requireAuthorization(AuthorizationStatus.Auth));
       });
   };
 

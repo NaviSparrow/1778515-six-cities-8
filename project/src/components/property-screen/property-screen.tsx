@@ -4,7 +4,6 @@ import {connect, ConnectedProps} from 'react-redux';
 import {ThunkAppDispatch} from '../../types/action';
 import {fetchExpendedOfferAction, fetchNearbyOffersAction, fetchReviewsAction} from '../../store/api-actions';
 import ExpendedOffer from '../expended-offer/expended-offer';
-
 type PropertyScreenProps = {
   id: number
 }
