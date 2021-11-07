@@ -7,7 +7,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {changeCity} from '../../store/action';
 import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
 import {filterOffersByCity} from '../../const';
-import ScreenHeader from '../header/screen-header';
+import Header from '../header/header';
 import Map from '../map/map';
 import React, {useState} from 'react';
 import {Offer} from '../../types/offer';
@@ -55,7 +55,7 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
       </div>
 
       <div className="page page--gray page--main">
-        <ScreenHeader />
+        <Header />
 
         <main className={`page__main page__main--index ${currentOffers.length === 0 ? 'page__main--index-empty': ''}`}>
           <h1 className="visually-hidden">Cities</h1>

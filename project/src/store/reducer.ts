@@ -7,7 +7,7 @@ const initialState = {
   offerList: [],
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  expendedOffer: null,
+  openedOffer: null,
   reviewList: [],
   nearbyOfferList: [],
 };
@@ -22,13 +22,13 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, authorizationStatus: action.payload, isDataLoaded: true};
     case ActionType.RequireLogout:
       return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
-    case ActionType.GetExpendedOffer:
-      return {...state, expendedOffer: action.payload};
-    case ActionType.GetReviewsList:
+    case ActionType.FillOpenedOffer:
+      return {...state, openedOffer: action.payload};
+    case ActionType.FillReviewsList:
       return {...state, reviewList: action.payload};
     case ActionType.ResetPropertyScreen:
-      return {...state, expendedOffer: null, reviewList: [], nearbyOfferList: []};
-    case ActionType.GetNearbyOffersList:
+      return {...state, openedOffer: null, reviewList: [], nearbyOfferList: []};
+    case ActionType.FillNearbyOffersList:
       return {...state, nearbyOfferList: action.payload};
     default: return state;
   }

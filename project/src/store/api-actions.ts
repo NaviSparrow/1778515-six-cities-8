@@ -16,9 +16,9 @@ import {
 } from '../const';
 import {
   fillOffersList,
-  getExpendedOffer,
-  getNearbyOffersList,
-  getReviewsList,
+  fillOpenedOffer,
+  fillNearbyOffersList,
+  fillReviewsList,
   redirectToRoute,
   requireAuthorization,
   requireLogout
@@ -29,8 +29,6 @@ import {AxiosResponse} from 'axios';
 export const fetchOffersAction = ():ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<OfferFromServer[]>(APIRoute.Offers);
-    // eslint-disable-next-line no-console
-    console.log(data);
     dispatch(fillOffersList(
       adaptedToClientOfferList(data),
     ));
@@ -65,10 +63,10 @@ export const logoutAction = (): ThunkActionResult =>
     dispatch(requireLogout());
   };
 
-export const fetchExpendedOfferAction = (id: number):ThunkActionResult =>
+export const fetchOpenedOfferAction = (id: number):ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<OfferFromServer>(`${APIRoute.Offers}/${id}`);
-    dispatch(getExpendedOffer(
+    dispatch(fillOpenedOffer(
       adaptedToClientOffer(data)),
     );
   };
@@ -76,7 +74,7 @@ export const fetchExpendedOfferAction = (id: number):ThunkActionResult =>
 export const fetchReviewsAction = (id: number):ThunkActionResult =>
   async (dispatch, _getState, api) => {
     const {data} = await api.get<ReviewFromServerType[]>(`${APIRoute.Comments}/${id}`);
-    dispatch(getReviewsList(
+    dispatch(fillReviewsList(
       adaptedToClientReviewsList(data)),
     );
   };
@@ -84,7 +82,7 @@ export const fetchReviewsAction = (id: number):ThunkActionResult =>
 export const fetchNearbyOffersAction = (id: number):ThunkActionResult =>
   async (dispatch, _getState, api) => {
     const {data} = await api.get<OfferFromServer[]>(`${APIRoute.Offers}/${id}/nearby`);
-    dispatch(getNearbyOffersList(
+    dispatch(fillNearbyOffersList(
       adaptedToClientOfferList(data)),
     );
   };
@@ -92,7 +90,7 @@ export const fetchNearbyOffersAction = (id: number):ThunkActionResult =>
 export const postNewReviewAction = ({comment, rating, id}:ReviewPostType):ThunkActionResult =>
   async (dispatch, _getState, api) => {
     const {data} = await api.post<ReviewFromServerType[]>(`${APIRoute.Comments}/${id}`, {comment, rating});
-    dispatch(getReviewsList(
+    dispatch(fillReviewsList(
       adaptedToClientReviewsList(data)),
     );
   };

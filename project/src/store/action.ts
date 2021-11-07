@@ -31,17 +31,17 @@ export const redirectToRoute = (url: AppRoute) => ({
   payload: url,
 } as const);
 
-export const getExpendedOffer = (offer: Offer) => ({
-  type: ActionType.GetExpendedOffer,
+export const fillOpenedOffer = (offer: Offer) => ({
+  type: ActionType.FillOpenedOffer,
   payload: offer,
 } as const);
 
-export const getReviewsList = (reviewsList: ReviewType[]) => ({
-  type: ActionType.GetReviewsList,
+export const fillReviewsList = (reviewsList: ReviewType[]) => ({
+  type: ActionType.FillReviewsList,
   payload: reviewsList,
 } as const);
 
-export const getNearbyOffersList = (offersList: Offer[]) => ({
-  type: ActionType.GetNearbyOffersList,
+export const fillNearbyOffersList = (offersList: Offer[]) => ({
+  type: ActionType.FillNearbyOffersList,
   payload: offersList,
 } as const);

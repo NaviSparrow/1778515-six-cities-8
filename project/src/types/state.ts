@@ -1,4 +1,4 @@
-import {CityType, ExpendedOfferType, OfferListType} from './offer';
+import {CityType, OpenedOfferType, OfferListType} from './offer';
 import {AuthorizationStatus} from '../const';
 import {ReviewListType} from './review-type';
 
@@ -7,7 +7,7 @@ export type State = {
   offerList: OfferListType,
   isDataLoaded: boolean,
   authorizationStatus: AuthorizationStatus,
-  expendedOffer: ExpendedOfferType,
+  openedOffer: OpenedOfferType,
   reviewList: ReviewListType,
   nearbyOfferList: OfferListType,
 }

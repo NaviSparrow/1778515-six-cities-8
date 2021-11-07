@@ -1,7 +1,7 @@
 import Logo from '../logo/logo';
 import AuthorizationBar from './authorization-bar';
 
-function ScreenHeader():JSX.Element {
+function Header():JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -18,4 +18,4 @@ function ScreenHeader():JSX.Element {
   );
 }
 
-export default ScreenHeader;
+export default Header;
