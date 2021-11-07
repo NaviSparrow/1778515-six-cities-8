@@ -1,36 +1,13 @@
 import {Link} from 'react-router-dom';
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
-import {Actions} from '../../types/action';
-import {resetPropertyScreen} from '../../store/action';
-import {Dispatch} from '@reduxjs/toolkit';
 
-const mapStateToProps = ({openedOffer}: State) => ({
-  openedOffer,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  clickHandler() {
-    dispatch(resetPropertyScreen());
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function Logo(props: PropsFromRedux): JSX.Element {
-  const {openedOffer, clickHandler} = props;
+function Logo(): JSX.Element {
   return (
     <div className="header__left">
       <Link className="header__logo-link" to="/">
-        <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"
-          onClick={() => openedOffer !== null ? clickHandler() : ''}
-        />
+        <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
       </Link>
     </div>
   );
 }
 
-export {Logo};
-export default connector(Logo);
+export default Logo;
