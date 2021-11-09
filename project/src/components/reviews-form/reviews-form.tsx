@@ -37,11 +37,7 @@ function ReviewsForm({onSubmit, openedOffer}: PropsFromRedux):JSX.Element {
     setReviewComment('');
   };
 
-  const isReviewValid = (comment:string, rating: number):boolean => {
-    // eslint-disable-next-line no-console
-    console.log(comment, rating);
-    return(comment.length > 50 && comment.length < 300) && rating !== 0;
-  };
+  const isReviewValid = (comment:string, rating: number):boolean => (comment.length > 50 && comment.length < 300) && rating !== 0;
 
   return (
     <form
@@ -51,7 +47,7 @@ function ReviewsForm({onSubmit, openedOffer}: PropsFromRedux):JSX.Element {
       onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <ReviewsFormRating reviewRating={reviewRating} updateReviewRating={setReviewRating} />
+      <ReviewsFormRating reviewRating={reviewRating} onRatingChange={setReviewRating} />
       <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewComment}
         onChange={({target}: ChangeEvent<HTMLTextAreaElement>) => setReviewComment(target.value)}

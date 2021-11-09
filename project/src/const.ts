@@ -41,6 +41,14 @@ export enum SortType {
   TopRated = 'Top rated first',
 }
 
+export const StarRating = {
+  'perfect': 5,
+  'good': 4,
+  'not bad': 3,
+  'badly': 2,
+  'terribly': 1,
+};
+
 export const filterOffersByCity = (offersList: OfferListType, city: CityType): OfferListType=> {
   if (!offersList) {
     return [];
