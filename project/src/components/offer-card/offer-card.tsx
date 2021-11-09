@@ -1,5 +1,6 @@
 import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
+import React from 'react';
 
 type OfferCardProps = {
   offer: Offer
@@ -7,6 +8,8 @@ type OfferCardProps = {
 }
 
 function OfferCard({offer, onActiveOfferChange}:OfferCardProps): JSX.Element {
+  // eslint-disable-next-line no-console
+  console.log('offer');
   const {id, isPremium, previewImage, price, isFavorite, title, type, rating} = offer;
   return (
     <article className="cities__place-card place-card"
@@ -52,4 +55,5 @@ function OfferCard({offer, onActiveOfferChange}:OfferCardProps): JSX.Element {
   );
 }
 
-export default OfferCard;
+export default React.memo(OfferCard,
+  (prevProps, nextProps) => prevProps.offer === nextProps.offer);

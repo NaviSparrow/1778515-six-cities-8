@@ -3,6 +3,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {AuthorizationStatus} from '../../const';
 import LoggedBar from './logged-bar';
 import NotLoggedBar from './not-logged-bar';
+import React from 'react';
 
 const mapStateToProps = ({authorizationStatus}: State) => ({
   authorizationStatus,

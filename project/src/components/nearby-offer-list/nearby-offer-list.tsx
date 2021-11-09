@@ -26,4 +26,5 @@ function NearbyOfferList(props: PropsFromRedux):JSX.Element {
 }
 
 export {NearbyOfferList};
-export default connector(NearbyOfferList);
+export default connector(React.memo(NearbyOfferList,
+  (prevProps, nextProps) => prevProps.nearbyOfferList === nextProps.nearbyOfferList));

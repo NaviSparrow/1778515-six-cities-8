@@ -1,6 +1,9 @@
 import {Link} from 'react-router-dom';
+import React from 'react';
 
 function Logo(): JSX.Element {
+  // eslint-disable-next-line no-console
+  console.log('logo');
   return (
     <div className="header__left">
       <Link className="header__logo-link" to="/">
@@ -10,4 +13,4 @@ function Logo(): JSX.Element {
   );
 }
 
-export default Logo;
+export default React.memo(Logo);

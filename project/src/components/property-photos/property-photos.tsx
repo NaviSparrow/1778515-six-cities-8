@@ -17,4 +17,4 @@ function PropertyPhotos({images}: PropertyPhotosProps): JSX.Element {
     </React.Fragment>
   );
 }
-export default PropertyPhotos;
+export default React.memo(PropertyPhotos);

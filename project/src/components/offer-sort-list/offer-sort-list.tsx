@@ -37,4 +37,4 @@ function OfferSortList(props: OfferSortListProps):JSX.Element {
   );
 }
 
-export default OfferSortList;
+export default React.memo(OfferSortList, (prevProps, nextProps) => prevProps.currentSort === nextProps.currentSort);

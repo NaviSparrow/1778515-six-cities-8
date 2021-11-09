@@ -1,5 +1,6 @@
 import Logo from '../logo/logo';
 import AuthorizationBar from './authorization-bar';
+import React from 'react';
 
 function Header():JSX.Element {
   return (
@@ -18,4 +19,4 @@ function Header():JSX.Element {
   );
 }
 
-export default Header;
+export default React.memo(Header);
