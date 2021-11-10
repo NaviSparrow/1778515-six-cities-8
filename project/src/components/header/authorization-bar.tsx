@@ -5,8 +5,8 @@ import LoggedBar from './logged-bar';
 import NotLoggedBar from './not-logged-bar';
 import React from 'react';
 
-const mapStateToProps = ({authorizationStatus}: State) => ({
-  authorizationStatus,
+const mapStateToProps = ({USER}: State) => ({
+  authorizationStatus: USER.authorizationStatus,
 });
 
 const connector = connect(mapStateToProps);

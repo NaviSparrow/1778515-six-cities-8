@@ -12,9 +12,9 @@ import Map from '../map/map';
 import React, {useState} from 'react';
 import {Offer} from '../../types/offer';
 
-const mapStateToProps = ({city, offerList}: State) => ({
-  city,
-  offerList,
+const mapStateToProps = ({MAIN}: State) => ({
+  city: MAIN.city,
+  offerList: MAIN.offerList,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({

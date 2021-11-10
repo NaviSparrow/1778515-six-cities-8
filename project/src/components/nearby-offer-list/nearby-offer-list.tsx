@@ -3,8 +3,8 @@ import NearbyOferCard from '../nearby-offer-card/nearby-ofer-card';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 
-const mapStateToProps = ({nearbyOfferList}:State) => ({
-  nearbyOfferList,
+const mapStateToProps = ({PROPERTY}:State) => ({
+  nearbyOfferList: PROPERTY.nearbyOfferList,
 });
 
 const connector = connect(mapStateToProps);

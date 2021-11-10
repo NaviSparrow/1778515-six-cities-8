@@ -13,9 +13,6 @@ export const fillOffersList = (offersList: Offer[]) => ({
   payload: offersList,
 } as const);
 
-export const resetPropertyScreen = () => ({
-  type: ActionType.ResetPropertyScreen,
-} as const);
 
 export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
   type: ActionType.RequireAuthorization,

@@ -11,11 +11,11 @@ import Spinner from '../spinner/spinner';
 import NearbyOfferList from '../nearby-offer-list/nearby-offer-list';
 import Header from '../header/header';
 
-const mapStateToProps = ({openedOffer, reviewList, nearbyOfferList, authorizationStatus}: State) => ({
-  openedOffer,
-  reviewList,
-  nearbyOfferList,
-  authorizationStatus,
+const mapStateToProps = ({PROPERTY, USER}: State) => ({
+  openedOffer: PROPERTY.openedOffer,
+  reviewList: PROPERTY.reviewList,
+  nearbyOfferList: PROPERTY.nearbyOfferList,
+  authorizationStatus: USER.authorizationStatus,
 });
 
 const connector = connect(mapStateToProps);

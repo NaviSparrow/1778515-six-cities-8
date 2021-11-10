@@ -7,8 +7,8 @@ import {State} from '../../types/state';
 import {ThunkAppDispatch} from '../../types/action';
 import {ReviewPostType} from '../../types/review-post-type';
 
-const mapStateToProps = ({openedOffer}: State) => ({
-  openedOffer,
+const mapStateToProps = ({PROPERTY}: State) => ({
+  openedOffer:PROPERTY.openedOffer,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

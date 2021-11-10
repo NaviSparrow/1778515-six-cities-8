@@ -11,10 +11,10 @@ import {State} from '../../types/state';
 import Spinner from '../spinner/spinner';
 import browserHistory from '../../browser-history/browser-history';
 
-const mapStateToProps = ({offerList, authorizationStatus, isDataLoaded}: State) => ({
-  offerList,
-  authorizationStatus,
-  isDataLoaded,
+const mapStateToProps = ({USER, MAIN}: State) => ({
+  offerList: MAIN.offerList,
+  authorizationStatus: USER.authorizationStatus,
+  isDataLoaded: MAIN.isDataLoaded,
 });
 
 
