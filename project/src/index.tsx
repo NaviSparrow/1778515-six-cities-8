@@ -23,6 +23,7 @@ const store = createStore(
     applyMiddleware(thunk.withExtraArgument(api)),
     applyMiddleware(redirect),
   ));
+
 (store.dispatch as ThunkAppDispatch)(checkAuthAction());
 (store.dispatch as ThunkAppDispatch)(fetchOffersAction());
 ReactDOM.render(
