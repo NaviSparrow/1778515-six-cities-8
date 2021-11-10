@@ -8,12 +8,13 @@ import {changeCity} from '../../store/action';
 import {AuthData} from '../../types/auth-data';
 import {State} from '../../types/state';
 import {CityType} from '../../types/offer';
+import {getCity} from '../../store/main-data/selectors';
 
 type AuthScreenProps = {
   onRandomCityClick: () => void;
 }
-const mapStateToProps = ({MAIN}: State) => ({
-  city:MAIN.city,
+const mapStateToProps = (state: State) => ({
+  city: getCity(state),
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

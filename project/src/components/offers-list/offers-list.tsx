@@ -12,8 +12,6 @@ type OffersListProps = {
 }
 
 function OffersList(props:OffersListProps):JSX.Element {
-  // eslint-disable-next-line no-console
-  console.log('offlist');
   const {city, offerList, onActiveOfferChange} = props;
   const [currentSort, setCurrentSort] = useState<string>(SortType.Popular);
   return (

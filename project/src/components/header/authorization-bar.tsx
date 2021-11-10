@@ -4,9 +4,10 @@ import {AuthorizationStatus} from '../../const';
 import LoggedBar from './logged-bar';
 import NotLoggedBar from './not-logged-bar';
 import React from 'react';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
-const mapStateToProps = ({USER}: State) => ({
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state: State) => ({
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const connector = connect(mapStateToProps);

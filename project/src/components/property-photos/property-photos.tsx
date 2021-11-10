@@ -2,7 +2,6 @@ import React from 'react';
 
 type PropertyPhotosProps = {
   images: string[];
-
 }
 
 function PropertyPhotos({images}: PropertyPhotosProps): JSX.Element {

@@ -8,8 +8,6 @@ type OfferCardProps = {
 }
 
 function OfferCard({offer, onActiveOfferChange}:OfferCardProps): JSX.Element {
-  // eslint-disable-next-line no-console
-  console.log('offer');
   const {id, isPremium, previewImage, price, isFavorite, title, type, rating} = offer;
   return (
     <article className="cities__place-card place-card"

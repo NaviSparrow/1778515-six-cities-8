@@ -10,12 +10,14 @@ import {connect, ConnectedProps} from 'react-redux';
 import Spinner from '../spinner/spinner';
 import NearbyOfferList from '../nearby-offer-list/nearby-offer-list';
 import Header from '../header/header';
+import {getNearbyOffersList, getOpenedOffer, getReviewsList} from '../../store/property-data/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
-const mapStateToProps = ({PROPERTY, USER}: State) => ({
-  openedOffer: PROPERTY.openedOffer,
-  reviewList: PROPERTY.reviewList,
-  nearbyOfferList: PROPERTY.nearbyOfferList,
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state: State) => ({
+  openedOffer: getOpenedOffer(state),
+  reviewList: getReviewsList(state),
+  nearbyOfferList: getNearbyOffersList(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const connector = connect(mapStateToProps);

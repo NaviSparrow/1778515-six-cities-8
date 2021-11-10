@@ -10,11 +10,13 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import {State} from '../../types/state';
 import Spinner from '../spinner/spinner';
 import browserHistory from '../../browser-history/browser-history';
+import {getLoadedDataStatus, getOfferList} from '../../store/main-data/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
-const mapStateToProps = ({USER, MAIN}: State) => ({
-  offerList: MAIN.offerList,
-  authorizationStatus: USER.authorizationStatus,
-  isDataLoaded: MAIN.isDataLoaded,
+const mapStateToProps = (state: State) => ({
+  offerList: getOfferList(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  isDataLoaded: getLoadedDataStatus(state),
 });
 
 

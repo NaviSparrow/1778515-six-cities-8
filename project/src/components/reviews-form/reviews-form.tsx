@@ -6,9 +6,10 @@ import {postNewReviewAction} from '../../store/api-actions';
 import {State} from '../../types/state';
 import {ThunkAppDispatch} from '../../types/action';
 import {ReviewPostType} from '../../types/review-post-type';
+import {getOpenedOffer} from '../../store/property-data/selectors';
 
-const mapStateToProps = ({PROPERTY}: State) => ({
-  openedOffer:PROPERTY.openedOffer,
+const mapStateToProps = (state: State) => ({
+  openedOffer: getOpenedOffer(state),
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
