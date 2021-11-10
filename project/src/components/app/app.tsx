@@ -64,7 +64,7 @@ function App(props: PropsFromRedux): JSX.Element {
               return <NotFoundPage />;
             }
             return (
-              <PropertyScreen id={id} />
+              <PropertyScreen offer={offer} id={id} />
             );
           }}
         >

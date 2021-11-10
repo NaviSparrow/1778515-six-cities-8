@@ -2,7 +2,7 @@ import FavoritesOffersList from '../favorites-offers-list/favorites-offers-list'
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import FavoritesScreenEmpty from '../favorites-screen-empty/favorites-screen-empty';
-import ScreenHeader from '../header/screen-header';
+import Header from '../header/header';
 
 const mapStateToProps = ({offerList}: State) => ({
   offerList,
@@ -36,7 +36,7 @@ function FavoritesScreen({offerList}: PropsFromRedux):JSX.Element {
       </div>
 
       <div className="page">
-        <ScreenHeader />
+        <Header />
 
         <main className={`page__main page__main--favorites ${offerList.length === 0 ? 'page__main--favorites-empty': ''}`}>
           <div className="page__favorites-container container">

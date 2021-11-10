@@ -40,7 +40,7 @@ export type ImageWrapper = {
 
 export type OfferListType = Offer[] | [];
 
-export type ExpendedOfferType = Offer | null;
+export type OpenedOfferType = Offer | null;
 
 export type CityType = string;
 

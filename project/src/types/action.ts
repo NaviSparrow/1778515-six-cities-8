@@ -5,9 +5,9 @@ import {
   requireLogout,
   redirectToRoute,
   resetPropertyScreen,
-  getExpendedOffer,
-  getReviewsList,
-  getNearbyOffersList
+  fillOpenedOffer,
+  fillReviewsList,
+  fillNearbyOffersList
 } from '../store/action';
 import {ThunkAction, ThunkDispatch} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
@@ -19,10 +19,10 @@ export enum ActionType {
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   RedirectToRoute = 'main/redirectToRoute',
-  GetExpendedOffer = 'property/getExpendedOffer',
-  GetReviewsList = 'property/getReviewsList',
+  FillOpenedOffer = 'property/fillOpenedOffer',
+  FillReviewsList = 'property/fillReviewsList',
   ResetPropertyScreen = 'property/reset',
-  GetNearbyOffersList = 'property/getNearbyOffersList'
+  FillNearbyOffersList = 'property/fillNearbyOffersList'
 }
 
 export type Actions =
@@ -31,10 +31,10 @@ export type Actions =
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>
   | ReturnType<typeof redirectToRoute>
-  | ReturnType<typeof getExpendedOffer>
-  | ReturnType<typeof getReviewsList>
+  | ReturnType<typeof fillOpenedOffer>
+  | ReturnType<typeof fillReviewsList>
   | ReturnType<typeof resetPropertyScreen>
-  | ReturnType<typeof getNearbyOffersList>;
+  | ReturnType<typeof fillNearbyOffersList>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 
