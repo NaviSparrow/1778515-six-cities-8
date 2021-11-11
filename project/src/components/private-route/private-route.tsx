@@ -3,6 +3,7 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import {History} from 'history';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 type RenderFuncProps = {
   history: History<unknown>;
@@ -13,8 +14,8 @@ type PrivatRouteProps = RouteProps & {
   authorizationStatus: AuthorizationStatus;
 }
 
-const mapStateToProps = ({authorizationStatus}:State) => ({
-  authorizationStatus,
+const mapStateToProps = (state:State) => ({
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const connector = connect(mapStateToProps);

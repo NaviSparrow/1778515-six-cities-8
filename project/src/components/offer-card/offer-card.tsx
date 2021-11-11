@@ -1,5 +1,6 @@
 import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
+import React from 'react';
 
 type OfferCardProps = {
   offer: Offer
@@ -52,4 +53,5 @@ function OfferCard({offer, onActiveOfferChange}:OfferCardProps): JSX.Element {
   );
 }
 
-export default OfferCard;
+export default React.memo(OfferCard,
+  (prevProps, nextProps) => prevProps.offer === nextProps.offer);

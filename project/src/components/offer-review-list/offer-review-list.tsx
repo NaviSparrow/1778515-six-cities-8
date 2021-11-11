@@ -14,4 +14,4 @@ function OfferReviewList({reviews}: OfferReviewsListProps): JSX.Element {
   );
 }
 
-export default OfferReviewList;
+export default React.memo(OfferReviewList, (prevProps, nextProps) => prevProps.reviews === nextProps.reviews);

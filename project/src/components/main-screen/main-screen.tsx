@@ -11,10 +11,11 @@ import Header from '../header/header';
 import Map from '../map/map';
 import React, {useState} from 'react';
 import {Offer} from '../../types/offer';
+import {getCity, getOfferList} from '../../store/main-data/selectors';
 
-const mapStateToProps = ({city, offerList}: State) => ({
-  city,
-  offerList,
+const mapStateToProps = (state: State) => ({
+  city: getCity(state),
+  offerList: getOfferList(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({

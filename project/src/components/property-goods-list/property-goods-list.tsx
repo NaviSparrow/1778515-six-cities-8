@@ -16,4 +16,4 @@ function PropertyGoodsList({goods}: PropertyGoodsListProps): JSX.Element {
   );
 }
 
-export default PropertyGoodsList;
+export default React.memo(PropertyGoodsList);

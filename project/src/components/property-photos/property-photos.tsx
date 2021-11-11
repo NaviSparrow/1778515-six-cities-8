@@ -2,7 +2,6 @@ import React from 'react';
 
 type PropertyPhotosProps = {
   images: string[];
-
 }
 
 function PropertyPhotos({images}: PropertyPhotosProps): JSX.Element {
@@ -17,4 +16,4 @@ function PropertyPhotos({images}: PropertyPhotosProps): JSX.Element {
     </React.Fragment>
   );
 }
-export default PropertyPhotos;
+export default React.memo(PropertyPhotos);

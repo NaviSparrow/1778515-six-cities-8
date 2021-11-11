@@ -2,9 +2,10 @@ import React from 'react';
 import NearbyOferCard from '../nearby-offer-card/nearby-ofer-card';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
+import {getNearbyOffersList} from '../../store/property-data/selectors';
 
-const mapStateToProps = ({nearbyOfferList}:State) => ({
-  nearbyOfferList,
+const mapStateToProps = (state:State) => ({
+  nearbyOfferList: getNearbyOffersList(state),
 });
 
 const connector = connect(mapStateToProps);
@@ -26,4 +27,5 @@ function NearbyOfferList(props: PropsFromRedux):JSX.Element {
 }
 
 export {NearbyOfferList};
-export default connector(NearbyOfferList);
+export default connector(React.memo(NearbyOfferList,
+  (prevProps, nextProps) => prevProps.nearbyOfferList === nextProps.nearbyOfferList));

@@ -4,8 +4,8 @@ import {connect, ConnectedProps} from 'react-redux';
 import FavoritesScreenEmpty from '../favorites-screen-empty/favorites-screen-empty';
 import Header from '../header/header';
 
-const mapStateToProps = ({offerList}: State) => ({
-  offerList,
+const mapStateToProps = ({MAIN}: State) => ({
+  offerList: MAIN.offerList,
 });
 
 const connector = connect(mapStateToProps);

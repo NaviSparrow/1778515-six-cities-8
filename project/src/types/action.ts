@@ -4,7 +4,6 @@ import {
   requireAuthorization,
   requireLogout,
   redirectToRoute,
-  resetPropertyScreen,
   fillOpenedOffer,
   fillReviewsList,
   fillNearbyOffersList
@@ -21,7 +20,6 @@ export enum ActionType {
   RedirectToRoute = 'main/redirectToRoute',
   FillOpenedOffer = 'property/fillOpenedOffer',
   FillReviewsList = 'property/fillReviewsList',
-  ResetPropertyScreen = 'property/reset',
   FillNearbyOffersList = 'property/fillNearbyOffersList'
 }
 
@@ -33,7 +31,6 @@ export type Actions =
   | ReturnType<typeof redirectToRoute>
   | ReturnType<typeof fillOpenedOffer>
   | ReturnType<typeof fillReviewsList>
-  | ReturnType<typeof resetPropertyScreen>
   | ReturnType<typeof fillNearbyOffersList>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
