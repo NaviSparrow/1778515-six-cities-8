@@ -3,16 +3,6 @@ import {AuthorizationStatus} from '../const';
 import {ReviewListType} from './review-type';
 import {RootState} from '../store/root-reducer';
 
-// export type State = {
-//   city: CityType,
-//   offerList: OfferListType,
-//   isDataLoaded: boolean,
-//   authorizationStatus: AuthorizationStatus,
-//   openedOffer: OpenedOfferType,
-//   reviewList: ReviewListType,
-//   nearbyOfferList: OfferListType,
-// }
-
 export type MainData = {
   city: CityType,
   offerList: OfferListType,
@@ -28,5 +18,9 @@ export type PropertyData = {
   reviewList: ReviewListType,
   nearbyOfferList: OfferListType,
 };
+
+export type FavoriteData = {
+  favoritesOfferList: OfferListType
+}
 
 export type State = RootState;

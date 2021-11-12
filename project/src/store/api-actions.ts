@@ -21,7 +21,10 @@ import {
   fillReviewsList,
   redirectToRoute,
   requireAuthorization,
-  requireLogout
+  requireLogout,
+  fillFavoritesOfferList,
+  updateOffer,
+  removeFromFavoritesList
 } from './action';
 import {ReviewPostType} from '../types/review-post-type';
 import {AxiosResponse} from 'axios';
@@ -95,4 +98,28 @@ export const postNewReviewAction = ({comment, rating, id}:ReviewPostType):ThunkA
     );
   };
 
+export const addOfferToFavoritesAction = (id: number): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const {data} = await api.post<OfferFromServer>(`${APIRoute.Favorite}/${id}/1`);
+    dispatch(updateOffer(
+      adaptedToClientOffer(data)),
+    );
+  };
+
+export const deleteOfferFromFavoriteAction = (id:number): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const {data} = await api.post<OfferFromServer>(`${APIRoute.Favorite}/${id}/0`);
+    dispatch(updateOffer(
+      adaptedToClientOffer(data)),
+    );
+    dispatch(removeFromFavoritesList(id));
+  };
+
+export const fetchFavoritesOfferList = ():ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const {data} = await api.get<OfferFromServer[]>(APIRoute.Favorite);
+    dispatch(fillFavoritesOfferList(
+      adaptedToClientOfferList(data),
+    ));
+  };
 
