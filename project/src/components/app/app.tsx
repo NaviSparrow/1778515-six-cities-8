@@ -53,7 +53,9 @@ function App(props: PropsFromRedux): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          render={() => <FavoritesScreen />}
+          render={() => (
+            <FavoritesScreen />
+          )}
         >
         </PrivateRoute>
         <Route

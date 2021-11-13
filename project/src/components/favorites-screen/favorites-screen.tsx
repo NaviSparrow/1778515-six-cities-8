@@ -1,18 +1,21 @@
-import FavoritesOffersList from '../favorites-offers-list/favorites-offers-list';
-import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
-import FavoritesScreenEmpty from '../favorites-screen-empty/favorites-screen-empty';
 import Header from '../header/header';
+import {ThunkAppDispatch} from '../../types/action';
+import {fetchFavoritesOfferList} from '../../store/api-actions';
+import FavoritesMainContent from '../favorites-main-content/favorites-main-content';
 
-const mapStateToProps = ({MAIN}: State) => ({
-  offerList: MAIN.offerList,
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  fetchFavoritesOffers() {
+    dispatch(fetchFavoritesOfferList());
+  },
 });
 
-const connector = connect(mapStateToProps);
+const connector = connect(null, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function FavoritesScreen({offerList}: PropsFromRedux):JSX.Element {
+function FavoritesScreen({fetchFavoritesOffers}: PropsFromRedux):JSX.Element {
+  fetchFavoritesOffers();
   return (
     <>
       <div style={{display: 'none'}}>
@@ -38,13 +41,7 @@ function FavoritesScreen({offerList}: PropsFromRedux):JSX.Element {
       <div className="page">
         <Header />
 
-        <main className={`page__main page__main--favorites ${offerList.length === 0 ? 'page__main--favorites-empty': ''}`}>
-          <div className="page__favorites-container container">
-            {offerList.length !== 0
-              ? <FavoritesOffersList offersList={offerList.filter((offer) => offer.isFavorite)} />
-              : <FavoritesScreenEmpty />};
-          </div>
-        </main>
+        <FavoritesMainContent />
         <footer className="footer container">
           <a className="footer__logo-link" href="main.html">
             <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>

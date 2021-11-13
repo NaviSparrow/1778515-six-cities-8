@@ -1,12 +1,31 @@
-import {Offer} from '../../types/offer';
+import {CityType, Offer} from '../../types/offer';
 import React from 'react';
 import FavoriteOfferCard from '../favorite-offer-card/favorite-offer-card';
+import {Dispatch} from '@reduxjs/toolkit';
+import {Actions} from '../../types/action';
+import {changeCity, redirectToRoute} from '../../store/action';
+import {connect, ConnectedProps} from 'react-redux';
+import {AppRoute} from '../../const';
 
 type FavoritesOffersListProps = {
   offersList: Offer[];
 }
 
-function FavoritesOffersList({offersList}:FavoritesOffersListProps):JSX.Element {
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  cityChangeHandler(city: CityType) {
+    dispatch(changeCity(city));
+  },
+  redirectToRoot() {
+    dispatch(redirectToRoute(AppRoute.Root));
+  },
+});
+
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = FavoritesOffersListProps & PropsFromRedux;
+
+function FavoritesOffersList({offersList, cityChangeHandler, redirectToRoot}:ConnectedComponentProps):JSX.Element {
   const cities = new Set(offersList.map((offer) => offer.city.name));
   const uniqueCities = Array.from(cities);
   return (
@@ -19,7 +38,12 @@ function FavoritesOffersList({offersList}:FavoritesOffersListProps):JSX.Element 
             <li className="favorites__locations-items" key={city}>
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
-                  <a className="locations__item-link" href="#">
+                  <a className="locations__item-link" href="#"
+                    onClick={() => {
+                      cityChangeHandler(city);
+                      redirectToRoot();
+                    }}
+                  >
                     <span>{city}</span>
                   </a>
                 </div>
@@ -35,4 +59,5 @@ function FavoritesOffersList({offersList}:FavoritesOffersListProps):JSX.Element 
   );
 }
 
-export default FavoritesOffersList;
+export {FavoritesOffersList};
+export default connector(FavoritesOffersList);

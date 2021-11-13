@@ -1,12 +1,26 @@
 import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
+import {ThunkAppDispatch} from '../../types/action';
+import {deleteOfferFromFavoriteAction} from '../../store/api-actions';
+import {connect, ConnectedProps} from 'react-redux';
 
 type OfferCardProps = {
   offer: Offer
 }
 
-function FavoriteOfferCard({offer}:OfferCardProps): JSX.Element {
-  const {id, isPremium, previewImage, price, isFavorite, title, type} = offer;
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  removeOfferFromFavorites (id: number) {
+    dispatch(deleteOfferFromFavoriteAction(id));
+  },
+});
+
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = OfferCardProps & PropsFromRedux;
+
+function FavoriteOfferCard({offer, removeOfferFromFavorites}:ConnectedComponentProps): JSX.Element {
+  const {id, isPremium, previewImage, price, isFavorite, title, type, rating} = offer;
   return (
     <article className="cities__place-card place-card">
       <div className={isPremium ? 'place-card__mark' : 'visually-hidden'}>
@@ -23,7 +37,12 @@ function FavoriteOfferCard({offer}:OfferCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
+          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button"
+            onClick={(evt) => {
+              evt.preventDefault();
+              removeOfferFromFavorites(id);
+            }}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -32,7 +51,7 @@ function FavoriteOfferCard({offer}:OfferCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '40%'}}></span>
+            <span style={{width: `${rating * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -45,4 +64,5 @@ function FavoriteOfferCard({offer}:OfferCardProps): JSX.Element {
   );
 }
 
-export default FavoriteOfferCard;
+export {FavoriteOfferCard};
+export default connector(FavoriteOfferCard);

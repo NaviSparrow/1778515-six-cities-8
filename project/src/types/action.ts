@@ -6,7 +6,7 @@ import {
   redirectToRoute,
   fillOpenedOffer,
   fillReviewsList,
-  fillNearbyOffersList
+  fillNearbyOffersList, updateOffer, fillFavoritesOfferList, removeFromFavoritesList
 } from '../store/action';
 import {ThunkAction, ThunkDispatch} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
@@ -20,7 +20,10 @@ export enum ActionType {
   RedirectToRoute = 'main/redirectToRoute',
   FillOpenedOffer = 'property/fillOpenedOffer',
   FillReviewsList = 'property/fillReviewsList',
-  FillNearbyOffersList = 'property/fillNearbyOffersList'
+  FillNearbyOffersList = 'property/fillNearbyOffersList',
+  FillFavoritesOffersList = 'favorites/fillFavoritesOffersList',
+  RemoveFromFavoritesList = 'favorites/removeFromFavoritesList',
+  UpdateOffer = 'main/updateOffer',
 }
 
 export type Actions =
@@ -31,7 +34,10 @@ export type Actions =
   | ReturnType<typeof redirectToRoute>
   | ReturnType<typeof fillOpenedOffer>
   | ReturnType<typeof fillReviewsList>
-  | ReturnType<typeof fillNearbyOffersList>;
+  | ReturnType<typeof fillNearbyOffersList>
+  | ReturnType<typeof fillFavoritesOfferList>
+  | ReturnType<typeof removeFromFavoritesList>
+  | ReturnType<typeof updateOffer>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

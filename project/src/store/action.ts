@@ -13,7 +13,6 @@ export const fillOffersList = (offersList: Offer[]) => ({
   payload: offersList,
 } as const);
 
-
 export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
   type: ActionType.RequireAuthorization,
   payload: authStatus,
@@ -41,4 +40,19 @@ export const fillReviewsList = (reviewsList: ReviewType[]) => ({
 export const fillNearbyOffersList = (offersList: Offer[]) => ({
   type: ActionType.FillNearbyOffersList,
   payload: offersList,
+} as const);
+
+export const fillFavoritesOfferList = (offersList: Offer[]) => ({
+  type: ActionType.FillFavoritesOffersList,
+  payload: offersList,
+} as const);
+
+export const updateOffer = (offer: Offer) => ({
+  type: ActionType.UpdateOffer,
+  payload: offer,
+} as const);
+
+export const removeFromFavoritesList = (id: number) => ({
+  type: ActionType.RemoveFromFavoritesList,
+  payload: id,
 } as const);
