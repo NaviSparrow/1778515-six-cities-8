@@ -1,5 +1,5 @@
 import {Route, RouteComponentProps, Switch, Router as BrowserRouter} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 import MainScreen from '../main-screen/main-screen';
 import AuthScreen from '../auth-screen/auth-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
@@ -7,28 +7,18 @@ import PropertyScreen from '../property-screen/property-screen';
 import NotFoundPage from '../not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {State} from '../../types/state';
 import Spinner from '../spinner/spinner';
 import browserHistory from '../../browser-history/browser-history';
 import {getLoadedDataStatus, getOfferList} from '../../store/main-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
-const mapStateToProps = (state: State) => ({
-  offerList: getOfferList(state),
-  authorizationStatus: getAuthorizationStatus(state),
-  isDataLoaded: getLoadedDataStatus(state),
-});
-
-
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
 const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
 
-function App(props: PropsFromRedux): JSX.Element {
-  const {offerList, authorizationStatus, isDataLoaded} = props;
+function App(): JSX.Element {
+  const offerList = useSelector(getOfferList);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const isDataLoaded = useSelector(getLoadedDataStatus);
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
       <Spinner />
@@ -80,5 +70,5 @@ function App(props: PropsFromRedux): JSX.Element {
     </BrowserRouter>
   );
 }
-export {App};
-export default connector(App);
+
+export default App;

@@ -1,5 +1,6 @@
 import {PropertyData} from '../../types/state';
-import {Actions, ActionType} from '../../types/action';
+import {createReducer} from '@reduxjs/toolkit';
+import {fillNearbyOffersList, fillOpenedOffer, fillReviewsList} from '../action';
 
 const initialState: PropertyData = {
   openedOffer: null,
@@ -7,16 +8,17 @@ const initialState: PropertyData = {
   nearbyOfferList: [],
 };
 
-const propertyData = (state = initialState, action: Actions) => {
-  switch (action.type) {
-    case ActionType.FillOpenedOffer:
-      return {...state, openedOffer: action.payload};
-    case ActionType.FillReviewsList:
-      return {...state, reviewList: action.payload};
-    case ActionType.FillNearbyOffersList:
-      return {...state, nearbyOfferList: action.payload};
-    default: return state;
-  }
-};
+const propertyData = createReducer(initialState, (builder) => {
+  builder
+    .addCase(fillOpenedOffer, (state, action) => {
+      state.openedOffer = action.payload;
+    })
+    .addCase(fillReviewsList, (state, action) => {
+      state.reviewList = action.payload;
+    })
+    .addCase(fillNearbyOffersList, (state, action) => {
+      state.nearbyOfferList = action.payload;
+    });
+});
 
 export {propertyData};

@@ -1,40 +1,35 @@
 import React from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-import {Actions, ThunkAppDispatch} from '../../types/action';
+import {useDispatch} from 'react-redux';
 import {fetchOpenedOfferAction, fetchNearbyOffersAction, fetchReviewsAction} from '../../store/api-actions';
 import {Offer} from '../../types/offer';
 import {fillOpenedOffer} from '../../store/action';
 import OpenedOffer from '../opened-offer/opened-offer';
-import {Dispatch} from '@reduxjs/toolkit';
 
 type PropertyScreenProps = {
   id: number
   offer?: Offer
 }
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch | Dispatch<Actions>) => ({
-  fetchOpenedOffer(id: number) {
-    (dispatch as ThunkAppDispatch)(fetchOpenedOfferAction(id));
-  },
-  fetchReviews(id: number) {
-    (dispatch as ThunkAppDispatch)(fetchReviewsAction(id));
-  },
-  fetchNearbyOffers(id:number) {
-    (dispatch as ThunkAppDispatch)(fetchNearbyOffersAction(id));
-  },
-  sendToStateOfferFromProp(offer:Offer) {
-    (dispatch as Dispatch<Actions>)(fillOpenedOffer(offer));
-  },
-});
+function PropertyScreen(props: PropertyScreenProps):JSX.Element {
+  const dispatch = useDispatch();
 
-const connector = connect(null, mapDispatchToProps);
+  const fetchOpenedOffer = (id: number) => {
+    dispatch(fetchOpenedOfferAction(id));
+  };
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & PropertyScreenProps;
+  const fetchReviews = (id: number) => {
+    dispatch(fetchReviewsAction(id));
+  };
 
+  const fetchNearbyOffers = (id: number) => {
+    dispatch(fetchNearbyOffersAction(id));
+  };
 
-function PropertyScreen(props: ConnectedComponentProps):JSX.Element {
-  const {fetchOpenedOffer, fetchReviews, fetchNearbyOffers, sendToStateOfferFromProp, offer, id} = props;
+  const sendToStateOfferFromProp = (offer: Offer) => {
+    dispatch(fillOpenedOffer(offer));
+  };
+  const {offer, id} = props;
+
   if (offer === undefined) {
     fetchOpenedOffer(id);
   } else {
@@ -48,5 +43,4 @@ function PropertyScreen(props: ConnectedComponentProps):JSX.Element {
   );
 }
 
-export {PropertyScreen};
-export default connector(PropertyScreen);
+export default PropertyScreen;
