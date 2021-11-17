@@ -48,7 +48,7 @@ export const makeFakeReview = (): ReviewType => ({
     isPro: datatype.boolean(),
     name: name.firstName(),
   },
-});
+} as ReviewType);
 
 export const makeFakeOfferList = (): Offer[] => new Array(10).fill(null).map(() => makeFakeOffer());
 export const makeFakeReviewList = (): ReviewType[] => new Array(10).fill(null).map(() => makeFakeReview());

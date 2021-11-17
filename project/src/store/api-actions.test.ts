@@ -5,8 +5,11 @@ import {Action} from '@reduxjs/toolkit';
 import {State} from '../types/state';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {APIRoute, AuthorizationStatus} from '../const';
-import {checkAuthAction} from './api-actions';
-import {requireAuthorization} from './action';
+import {checkAuthAction, fetchOffersAction} from './api-actions';
+import {fillOffersList, requireAuthorization} from './action';
+import {makeFakeOfferList} from '../utils/mocks';
+
+const mockOfferList = makeFakeOfferList();
 
 describe('Async actions', () => {
   const onFakeUnauthorized = jest.fn();
@@ -32,6 +35,19 @@ describe('Async actions', () => {
 
     expect(store.getActions()).toEqual([
       requireAuthorization(AuthorizationStatus.Auth),
+    ]);
+  });
+
+  it('should dispatch fillOffersList when GET/offers', async () => {
+    mockAPI
+      .onGet(APIRoute.Offers)
+      .reply(200, mockOfferList);
+
+    const store = mockStore();
+    await store.dispatch(fetchOffersAction());
+
+    expect(store.getActions()).toEqual([
+      fillOffersList(mockOfferList),
     ]);
   });
 });
