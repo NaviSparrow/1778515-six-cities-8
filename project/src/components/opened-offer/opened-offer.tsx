@@ -14,6 +14,9 @@ import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {addOfferToFavoritesAction, checkAuthAction, deleteOfferFromFavoriteAction} from '../../store/api-actions';
 import {redirectToRoute} from '../../store/action';
 
+const START_NUMBER = 0;
+const END_NUMBER = 10;
+
 function OpenedOffer():JSX.Element {
   const openedOffer = useSelector(getOpenedOffer);
   const reviewList = useSelector(getReviewsList);
@@ -44,6 +47,9 @@ function OpenedOffer():JSX.Element {
   const offersForMap = [...nearbyOfferList, openedOffer];
   const {id, isPremium, rating, price, isFavorite, title, type, bedrooms, description, goods, host, maxAdults, images} = openedOffer;
   const styleForMap = '579px';
+  if(reviewList.length > 10) {
+    reviewList.slice(0, 10);
+  }
   return (
     <>
       <div style={{display: 'none'}}>
@@ -145,10 +151,8 @@ function OpenedOffer():JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewList.length}</span></h2>
-                  {reviewList.length !== 0
-                    ? <OfferReviewList reviews={reviewList} />
-                    : ''}
+                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewList.slice(START_NUMBER, END_NUMBER).length}</span></h2>
+                  {reviewList.length !== 0 ? <OfferReviewList reviews={reviewList.slice(START_NUMBER, END_NUMBER)} /> : ''}
                   {authorizationStatus === AuthorizationStatus.Auth
                     ? <ReviewsForm />
                     : ''}

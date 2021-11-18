@@ -9,7 +9,7 @@ type OfferReviewsListProps = {
 function OfferReviewList({reviews}: OfferReviewsListProps): JSX.Element {
   return (
     <ul className="reviews__list">
-      {reviews.map((review) => <OfferReview key={review.id} review={review} />)}
+      {reviews.slice().reverse().map((review) => <OfferReview key={review.id} review={review} />)}
     </ul>
   );
 }

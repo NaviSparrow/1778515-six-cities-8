@@ -2,7 +2,7 @@ import {address, datatype, image, internet, name, random} from 'faker';
 import {Offer} from '../types/offer';
 import {ReviewType} from '../types/review-type';
 import {OfferFromServer} from '../types/offer-from-server';
-import {ReviewFromServerType} from "../types/review-from-server-type";
+import {ReviewFromServerType} from '../types/review-from-server-type';
 
 export const makeFakeOffer = (): Offer => ({
   bedrooms: datatype.number(5),
