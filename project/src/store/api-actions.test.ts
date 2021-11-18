@@ -40,7 +40,7 @@ import {
   makeFakeReviewListFromServer
 } from '../utils/mocks';
 import {AuthData} from '../types/auth-data';
-import {ReviewPostType} from '../types/review-post-type';
+import {ActionsOnFormSubmit, ReviewPostType} from '../types/review-post-type';
 
 describe('Async actions', () => {
   const onFakeUnauthorized = jest.fn();
@@ -178,14 +178,17 @@ describe('Async actions', () => {
     const mockOpenedOfferFromServer = makeFakeOfferFromServer();
     const mockReviewListFromServer = makeFakeReviewListFromServer();
     const mockid = mockOpenedOfferFromServer.id;
+    const onSuccessResetForm = jest.fn();
+    const setDisableForm = jest.fn();
 
     const fakeReview:ReviewPostType = {comment: FAKE_COMMENT, rating: FAKE_RATING, id: mockid};
+    const fakeFormActions: ActionsOnFormSubmit = {onSuccessResetForm, setDisableForm};
     mockAPI
       .onPost(`${APIRoute.Comments}/${mockid}`)
       .reply(200, mockReviewListFromServer);
 
     const store = mockStore();
-    await store.dispatch(postNewReviewAction(fakeReview));
+    await store.dispatch(postNewReviewAction(fakeReview, fakeFormActions));
 
     expect(store.getActions()).toEqual([
       fillReviewsList(

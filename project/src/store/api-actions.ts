@@ -26,8 +26,11 @@ import {
   updateOffer,
   removeFromFavoritesList
 } from './action';
-import {ReviewPostType} from '../types/review-post-type';
+import {ActionsOnFormSubmit, ReviewPostType} from '../types/review-post-type';
 import {AxiosResponse} from 'axios';
+import {toast} from 'react-toastify';
+
+const POST_NEW_COMMENT_FAIL_MESSAGE = 'Ошибка при отправке отзыва. Попробуйте ещё раз.';
 
 export const fetchOffersAction = ():ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -36,7 +39,6 @@ export const fetchOffersAction = ():ThunkActionResult =>
       adaptedToClientOfferList(data),
     ));
   };
-
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -90,12 +92,19 @@ export const fetchNearbyOffersAction = (id: number):ThunkActionResult =>
     );
   };
 
-export const postNewReviewAction = ({comment, rating, id}:ReviewPostType):ThunkActionResult =>
+export const postNewReviewAction = ({comment, rating, id}:ReviewPostType, {onSuccessResetForm, setDisableForm}: ActionsOnFormSubmit):ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const {data} = await api.post<ReviewFromServerType[]>(`${APIRoute.Comments}/${id}`, {comment, rating});
-    dispatch(fillReviewsList(
-      adaptedToClientReviewsList(data)),
-    );
+    try {
+      const {data} = await api.post<ReviewFromServerType[]>(`${APIRoute.Comments}/${id}`, {comment, rating});
+      dispatch(fillReviewsList(
+        adaptedToClientReviewsList(data)),
+      );
+      onSuccessResetForm();
+      setDisableForm(false);
+    } catch {
+      toast.info(POST_NEW_COMMENT_FAIL_MESSAGE);
+      setDisableForm(false);
+    }
   };
 
 export const addOfferToFavoritesAction = (id: number): ThunkActionResult =>
