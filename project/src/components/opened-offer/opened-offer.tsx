@@ -3,35 +3,46 @@ import PropertyGoodsList from '../property-goods-list/property-goods-list';
 import Map from '../map/map';
 import React from 'react';
 import OfferReviewList from '../offer-review-list/offer-review-list';
-import {AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import ReviewsForm from '../reviews-form/reviews-form';
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Spinner from '../spinner/spinner';
 import NearbyOfferList from '../nearby-offer-list/nearby-offer-list';
 import Header from '../header/header';
 import {getNearbyOffersList, getOpenedOffer, getReviewsList} from '../../store/property-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {addOfferToFavoritesAction, checkAuthAction, deleteOfferFromFavoriteAction} from '../../store/api-actions';
+import {redirectToRoute} from '../../store/action';
 
-const mapStateToProps = (state: State) => ({
-  openedOffer: getOpenedOffer(state),
-  reviewList: getReviewsList(state),
-  nearbyOfferList: getNearbyOffersList(state),
-  authorizationStatus: getAuthorizationStatus(state),
-});
+function OpenedOffer():JSX.Element {
+  const openedOffer = useSelector(getOpenedOffer);
+  const reviewList = useSelector(getReviewsList);
+  const nearbyOfferList = useSelector(getNearbyOffersList);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const dispatch = useDispatch();
 
-const connector = connect(mapStateToProps);
+  const addToFavorites = (id: number) => {
+    dispatch(addOfferToFavoritesAction(id));
+  };
 
-type PropsFromRedux = ConnectedProps<typeof connector>
+  const removeFromFavorites = (id: number) => {
+    dispatch(deleteOfferFromFavoriteAction(id));
+  };
 
-function OpenedOffer(props: PropsFromRedux):JSX.Element {
-  const {openedOffer, reviewList, nearbyOfferList, authorizationStatus} = props;
+  const redirectToAuthScreen = () => {
+    dispatch(redirectToRoute(AppRoute.Auth));
+  };
+
+  const checkAuthorization = () => {
+    dispatch(checkAuthAction());
+  };
+
   if (openedOffer === null) {
     return <Spinner />;
   }
 
   const offersForMap = [...nearbyOfferList, openedOffer];
-  const {isPremium, rating, price, isFavorite, title, type, bedrooms, description, goods, host, maxAdults, images} = openedOffer;
+  const {id, isPremium, rating, price, isFavorite, title, type, bedrooms, description, goods, host, maxAdults, images} = openedOffer;
   const styleForMap = '579px';
   return (
     <>
@@ -73,7 +84,19 @@ function OpenedOffer(props: PropsFromRedux):JSX.Element {
                   <h1 className="property__name">
                     {title}
                   </h1>
-                  <button className={`property__bookmark-button ${isFavorite ? 'property__bookmark-button--active' : ''} button`} type="button">
+                  <button className={`property__bookmark-button ${isFavorite ? 'property__bookmark-button--active' : ''} button`} type="button"
+                    onClick={(evt) => {
+                      evt.preventDefault();
+                      checkAuthorization();
+                      if (authorizationStatus !== AuthorizationStatus.Auth) {
+                        return redirectToAuthScreen();
+                      }
+                      if (isFavorite) {
+                        return removeFromFavorites(id);
+                      }
+                      return addToFavorites(id);
+                    }}
+                  >
                     <svg className="property__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>
@@ -141,5 +164,4 @@ function OpenedOffer(props: PropsFromRedux):JSX.Element {
   );
 }
 
-export {OpenedOffer};
-export default connector(OpenedOffer);
+export default OpenedOffer;

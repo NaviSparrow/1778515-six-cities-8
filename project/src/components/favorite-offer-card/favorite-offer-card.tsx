@@ -1,25 +1,17 @@
 import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
-import {ThunkAppDispatch} from '../../types/action';
 import {deleteOfferFromFavoriteAction} from '../../store/api-actions';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 type OfferCardProps = {
   offer: Offer
 }
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  removeOfferFromFavorites (id: number) {
+function FavoriteOfferCard({offer}:OfferCardProps): JSX.Element {
+  const dispatch = useDispatch();
+  const removeOfferFromFavorites = (id: number) => {
     dispatch(deleteOfferFromFavoriteAction(id));
-  },
-});
-
-const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = OfferCardProps & PropsFromRedux;
-
-function FavoriteOfferCard({offer, removeOfferFromFavorites}:ConnectedComponentProps): JSX.Element {
+  };
   const {id, isPremium, previewImage, price, isFavorite, title, type, rating} = offer;
   return (
     <article className="cities__place-card place-card">
@@ -64,5 +56,4 @@ function FavoriteOfferCard({offer, removeOfferFromFavorites}:ConnectedComponentP
   );
 }
 
-export {FavoriteOfferCard};
-export default connector(FavoriteOfferCard);
+export default FavoriteOfferCard;

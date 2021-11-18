@@ -1,6 +1,7 @@
 import {MainData} from '../../types/state';
 import {City} from '../../const';
-import {Actions, ActionType} from '../../types/action';
+import {createReducer} from '@reduxjs/toolkit';
+import {changeCity, fillOffersList, updateOffer} from '../action';
 
 const initialState: MainData = {
   city: City.Paris,
@@ -8,24 +9,22 @@ const initialState: MainData = {
   isDataLoaded: false,
 };
 
-const mainData = (state = initialState, action:Actions): MainData => {
-  let index = -1;
-  switch (action.type) {
-    case ActionType.ChangeCity:
-      return {...state, city: action.payload};
-    case ActionType.FillOffersList:
-      return {...state, offerList: action.payload, isDataLoaded: true};
-    case ActionType.UpdateOffer:
-      index = state.offerList.findIndex((offer) => offer.id === action.payload.id);
-      return {...state, offerList: [
+const mainData = createReducer(initialState, (builder) => {
+  builder.addCase(changeCity, (state, action) => {
+    state.city = action.payload;
+  })
+    .addCase(fillOffersList, (state, action) => {
+      state.offerList = action.payload;
+      state.isDataLoaded = true;
+    })
+    .addCase(updateOffer, (state, action) => {
+      const index = state.offerList.findIndex((offer) => offer.id === action.payload.id);
+      state.offerList = [
         ...state.offerList.slice(0, index),
         action.payload,
         ...state.offerList.slice(index + 1),
-      ],
-      };
-    default:
-      return state;
-  }
-};
+      ];
+    });
+});
 
 export {mainData};

@@ -1,41 +1,29 @@
-import {ThunkAppDispatch} from '../../types/action';
 import {useRef, FormEvent} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import Logo from '../logo/logo';
 import {loginAction} from '../../store/api-actions';
 import {getRandomCity} from '../../const';
 import {changeCity} from '../../store/action';
 import {AuthData} from '../../types/auth-data';
-import {State} from '../../types/state';
 import {CityType} from '../../types/offer';
-import {getCity} from '../../store/main-data/selectors';
 
 type AuthScreenProps = {
   onRandomCityClick: () => void;
 }
-const mapStateToProps = (state: State) => ({
-  city: getCity(state),
-});
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSubmit(authData: AuthData) {
-    dispatch(loginAction(authData));
-  },
-  onChangeCity(city: CityType) {
-    dispatch(changeCity(city));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & AuthScreenProps
-
-function AuthScreen(props: ConnectedComponentProps):JSX.Element {
-  const {onSubmit, onChangeCity, onRandomCityClick} = props;
+function AuthScreen({onRandomCityClick}: AuthScreenProps):JSX.Element {
   const randomCity = getRandomCity();
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const dispatch = useDispatch();
+
+  const onSubmit = (authData: AuthData) => {
+    dispatch(loginAction(authData));
+  };
+
+  const onChangeCity = (city: CityType) => {
+    dispatch(changeCity(city));
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -119,5 +107,4 @@ function AuthScreen(props: ConnectedComponentProps):JSX.Element {
   );
 }
 
-export {AuthScreen};
-export default connector(AuthScreen);
+export default AuthScreen;

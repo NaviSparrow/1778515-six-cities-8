@@ -1,35 +1,23 @@
 import OffersList from '../offers-list/offers-list';
 import CitiesList from '../cities-list';
-import {State} from '../../types/state';
-import {Dispatch} from '@reduxjs/toolkit';
-import {Actions} from '../../types/action';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {changeCity} from '../../store/action';
 import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
 import {filterOffersByCity} from '../../const';
 import Header from '../header/header';
 import Map from '../map/map';
 import React, {useState} from 'react';
-import {Offer} from '../../types/offer';
+import {CityType, Offer} from '../../types/offer';
 import {getCity, getOfferList} from '../../store/main-data/selectors';
 
-const mapStateToProps = (state: State) => ({
-  city: getCity(state),
-  offerList: getOfferList(state),
-});
+function MainScreen(): JSX.Element {
+  const city = useSelector(getCity);
+  const offerList = useSelector(getOfferList);
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onChangeCity(city: string) {
-    dispatch(changeCity(city));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function MainScreen(props: PropsFromRedux): JSX.Element {
-  const {city, offerList, onChangeCity} = props;
+  const onChangeCity = (cityName: CityType) => {
+    dispatch(changeCity(cityName));
+  };
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const currentOffers = filterOffersByCity(offerList, city);
   const styleForMap = '762px';
@@ -86,5 +74,4 @@ function MainScreen(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export {MainScreen};
-export default connector(MainScreen);
+export default MainScreen;

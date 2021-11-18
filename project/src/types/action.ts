@@ -1,14 +1,4 @@
-import {
-  changeCity,
-  fillOffersList,
-  requireAuthorization,
-  requireLogout,
-  redirectToRoute,
-  fillOpenedOffer,
-  fillReviewsList,
-  fillNearbyOffersList, updateOffer, fillFavoritesOfferList, removeFromFavoritesList
-} from '../store/action';
-import {ThunkAction, ThunkDispatch} from '@reduxjs/toolkit';
+import {Action, ThunkAction, ThunkDispatch} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
 import {State} from './state';
 
@@ -26,19 +16,6 @@ export enum ActionType {
   UpdateOffer = 'main/updateOffer',
 }
 
-export type Actions =
-  | ReturnType<typeof changeCity>
-  | ReturnType<typeof fillOffersList>
-  | ReturnType<typeof requireAuthorization>
-  | ReturnType<typeof requireLogout>
-  | ReturnType<typeof redirectToRoute>
-  | ReturnType<typeof fillOpenedOffer>
-  | ReturnType<typeof fillReviewsList>
-  | ReturnType<typeof fillNearbyOffersList>
-  | ReturnType<typeof fillFavoritesOfferList>
-  | ReturnType<typeof removeFromFavoritesList>
-  | ReturnType<typeof updateOffer>;
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
-export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
-
-export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Action>;

@@ -1,19 +1,10 @@
 import React from 'react';
 import NearbyOferCard from '../nearby-offer-card/nearby-ofer-card';
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {getNearbyOffersList} from '../../store/property-data/selectors';
 
-const mapStateToProps = (state:State) => ({
-  nearbyOfferList: getNearbyOffersList(state),
-});
-
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function NearbyOfferList(props: PropsFromRedux):JSX.Element {
-  const {nearbyOfferList} = props;
+function NearbyOfferList():JSX.Element {
+  const nearbyOfferList = useSelector(getNearbyOffersList);
   return (
     <div className="container">
       <section className="near-places places">
@@ -26,6 +17,4 @@ function NearbyOfferList(props: PropsFromRedux):JSX.Element {
   );
 }
 
-export {NearbyOfferList};
-export default connector(React.memo(NearbyOfferList,
-  (prevProps, nextProps) => prevProps.nearbyOfferList === nextProps.nearbyOfferList));
+export default React.memo(NearbyOfferList);

@@ -1,29 +1,18 @@
 import React, {ChangeEvent, FormEvent} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import ReviewsFormRating from '../reviews-form-rating/reviews-form-rating';
 import {postNewReviewAction} from '../../store/api-actions';
-import {State} from '../../types/state';
-import {ThunkAppDispatch} from '../../types/action';
 import {ReviewPostType} from '../../types/review-post-type';
 import {getOpenedOffer} from '../../store/property-data/selectors';
 
-const mapStateToProps = (state: State) => ({
-  openedOffer: getOpenedOffer(state),
-});
+function ReviewsForm():JSX.Element {
+  const openedOffer = useSelector(getOpenedOffer);
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSubmit({comment, rating, id}: ReviewPostType) {
+  const onSubmit = ({comment, rating, id}: ReviewPostType) => {
     dispatch(postNewReviewAction({comment, rating, id}));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-
-function ReviewsForm({onSubmit, openedOffer}: PropsFromRedux):JSX.Element {
+  };
   const [reviewRating, setReviewRating] = useState<number>(0);
   const [reviewComment, setReviewComment] = useState<string>('');
 
@@ -67,4 +56,4 @@ function ReviewsForm({onSubmit, openedOffer}: PropsFromRedux):JSX.Element {
   );
 }
 
-export default connector(ReviewsForm);
+export default ReviewsForm;
