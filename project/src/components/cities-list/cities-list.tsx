@@ -1,4 +1,4 @@
-import {City } from '../const';
+import {City } from '../../const';
 import React from 'react';
 
 type CitiesListProps = {

@@ -1,5 +1,5 @@
 import OffersList from '../offers-list/offers-list';
-import CitiesList from '../cities-list';
+import CitiesList from '../cities-list/cities-list';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeCity} from '../../store/action';
 import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
