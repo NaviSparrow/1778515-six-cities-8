@@ -34,10 +34,6 @@ export type Offer = {
   type: string;
 }
 
-export type ImageWrapper = {
-  image: string;
- }
-
 export type OfferListType = Offer[] | [];
 
 export type OpenedOfferType = Offer | null;
