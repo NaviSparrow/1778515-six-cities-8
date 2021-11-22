@@ -1,5 +1,6 @@
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
+
 function NotLoggedBar(): JSX.Element {
   return (
     <li className="header__nav-item user">

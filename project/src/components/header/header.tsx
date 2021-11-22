@@ -8,11 +8,7 @@ function Header():JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <Logo />
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              <AuthorizationBar />
-            </ul>
-          </nav>
+          <AuthorizationBar />
         </div>
       </div>
     </header>

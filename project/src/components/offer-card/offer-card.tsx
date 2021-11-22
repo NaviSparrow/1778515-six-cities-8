@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import React from 'react';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, PropertyType} from '../../const';
 import {addOfferToFavoritesAction, checkAuthAction, deleteOfferFromFavoriteAction} from '../../store/api-actions';
 import {redirectToRoute} from '../../store/action';
 
@@ -84,7 +84,7 @@ function OfferCard(props:OfferCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{PropertyType.get(type)}</p>
       </div>
     </article>
   );

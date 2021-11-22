@@ -49,6 +49,13 @@ export const StarRating = {
   'terribly': 1,
 };
 
+export const PropertyType = new Map ([
+  ['apartment', 'Apartment'],
+  ['room', 'Private Room'],
+  ['house', 'House'],
+  ['hotel', 'Hotel'],
+]);
+
 export const filterOffersByCity = (offersList: OfferListType, city: CityType): OfferListType=> {
   if (!offersList) {
     return [];
@@ -153,3 +160,4 @@ export const getRandomCity = (): CityType => {
   const randomInt = Math.floor(Math.random() * cities.length);
   return cities[randomInt];
 };
+

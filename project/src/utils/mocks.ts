@@ -41,7 +41,7 @@ export const makeFakeOffer = (): Offer => ({
 
 export const makeFakeReview = (): ReviewType => ({
   comment: datatype.string(50),
-  date: datatype.string(10),
+  date: '2019-05-08T14:13:56.569Z',
   id: datatype.number(50),
   rating: datatype.number(5),
   user: {
@@ -89,7 +89,7 @@ export const makeFakeOfferFromServer = ():OfferFromServer => ({
 
 export const makeFakeReviewFromServer = (): ReviewFromServerType => ({
   comment: datatype.string(50),
-  date: datatype.string(10),
+  date: '2019-05-08T14:13:56.569Z',
   id: datatype.number(50),
   rating: datatype.number(5),
   user: {
@@ -101,6 +101,6 @@ export const makeFakeReviewFromServer = (): ReviewFromServerType => ({
 } as ReviewFromServerType);
 
 export const makeFakeOfferList = (): Offer[] => new Array(10).fill(null).map(() => makeFakeOffer());
-export const makeFakeReviewList = (): ReviewType[] => new Array(10).fill(null).map(() => makeFakeReview());
+export const makeFakeReviewList = (): ReviewType[] => new Array(5).fill(null).map(() => makeFakeReview());
 export const makeFakeOfferListFromServer = ():OfferFromServer[] => new Array(10).fill(null).map(() => makeFakeOfferFromServer());
 export const makeFakeReviewListFromServer = (): ReviewFromServerType[] => new Array(10).fill(null).map(() => makeFakeReviewFromServer());

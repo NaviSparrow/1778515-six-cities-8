@@ -3,7 +3,7 @@ import PropertyGoodsList from '../property-goods-list/property-goods-list';
 import Map from '../map/map';
 import React from 'react';
 import OfferReviewList from '../offer-review-list/offer-review-list';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, PropertyType} from '../../const';
 import ReviewsForm from '../reviews-form/reviews-form';
 import {useDispatch, useSelector} from 'react-redux';
 import Spinner from '../spinner/spinner';
@@ -118,7 +118,7 @@ function OpenedOffer():JSX.Element {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {type}
+                    {PropertyType.get(type)}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {bedrooms} Bedrooms

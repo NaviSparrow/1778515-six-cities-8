@@ -1,11 +1,12 @@
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
+import {PropertyType} from '../../const';
 
 type NearbyOferCardProps = {
   offer: Offer
 }
 
-function NearbyOferCard({offer}: NearbyOferCardProps): JSX.Element {
+function NearbyOfferCard({offer}: NearbyOferCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, title, type, rating} = offer;
   return (
     <article className="cities__place-card place-card">
@@ -13,11 +14,9 @@ function NearbyOferCard({offer}: NearbyOferCardProps): JSX.Element {
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200"
-            alt="Place image"
-          />
-        </Link>
+        <a href="#">
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
+        </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -41,9 +40,9 @@ function NearbyOferCard({offer}: NearbyOferCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{PropertyType.get(type)}</p>
       </div>
     </article>
   );
 }
-export default NearbyOferCard;
+export default NearbyOfferCard;

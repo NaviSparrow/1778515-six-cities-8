@@ -2,6 +2,7 @@ import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
 import {deleteOfferFromFavoriteAction} from '../../store/api-actions';
 import {useDispatch} from 'react-redux';
+import {PropertyType} from '../../const';
 
 type OfferCardProps = {
   offer: Offer
@@ -50,7 +51,7 @@ function FavoriteOfferCard({offer}:OfferCardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{PropertyType.get(type)}</p>
       </div>
     </article>
   );
