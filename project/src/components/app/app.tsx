@@ -1,4 +1,4 @@
-import {Route, RouteComponentProps, Switch, Router as BrowserRouter} from 'react-router-dom';
+import {Route, RouteComponentProps, Switch} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import MainScreen from '../main-screen/main-screen';
 import AuthScreen from '../auth-screen/auth-screen';
@@ -8,7 +8,6 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import Spinner from '../spinner/spinner';
-import browserHistory from '../../browser-history/browser-history';
 import {getLoadedDataStatus, getOfferList} from '../../store/main-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
@@ -25,49 +24,47 @@ function App(): JSX.Element {
     );
   }
   return(
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <Route exact path={AppRoute.Root}>
-          <MainScreen />;
-        </Route>
-        <Route
-          exact
-          path={AppRoute.Auth}
-          render={({history}) => (
-            <AuthScreen
-              onRandomCityClick={() => history.push(AppRoute.Root)}
-            />
-          )}
-        >
-        </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.Favorites}
-          render={() => (
-            <FavoritesScreen />
-          )}
-        >
-        </PrivateRoute>
-        <Route
-          exact
-          path={'/offer/:id'}
-          render={(routeProps: RouteComponentProps<{id: string}>) => {
-            const id: number =  parseInt(routeProps.match.params.id, 10);
-            const offer = offerList?.find((item) => item.id === id);
-            if (offer === undefined) {
-              return <NotFoundPage />;
-            }
-            return (
-              <PropertyScreen offer={offer} id={id} />
-            );
-          }}
-        >
-        </Route>
-        <Route>
-          <NotFoundPage />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route exact path={AppRoute.Root}>
+        <MainScreen />;
+      </Route>
+      <Route
+        exact
+        path={AppRoute.Auth}
+        render={({history}) => (
+          <AuthScreen
+            onRandomCityClick={() => history.push(AppRoute.Root)}
+          />
+        )}
+      >
+      </Route>
+      <PrivateRoute
+        exact
+        path={AppRoute.Favorites}
+        render={() => (
+          <FavoritesScreen />
+        )}
+      >
+      </PrivateRoute>
+      <Route
+        exact
+        path={'/offer/:id'}
+        render={(routeProps: RouteComponentProps<{id: string}>) => {
+          const id: number =  parseInt(routeProps.match.params.id, 10);
+          const offer = offerList?.find((item) => item.id === id);
+          if (offer === undefined) {
+            return <NotFoundPage />;
+          }
+          return (
+            <PropertyScreen offer={offer} id={id} />
+          );
+        }}
+      >
+      </Route>
+      <Route>
+        <NotFoundPage />
+      </Route>
+    </Switch>
   );
 }
 
