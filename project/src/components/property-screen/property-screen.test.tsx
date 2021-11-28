@@ -29,7 +29,7 @@ describe('Component: PropertyScreen', () => {
         <Router history={history}>
           <Route exact path={`/offer/${fakeOpenedOffer.id}`}>
             <PropertyScreen id={fakeOpenedOffer.id} offer={fakeOpenedOffer} />
-          </Route>
+          </Route>пше
         </Router>
       </Provider>);
 
