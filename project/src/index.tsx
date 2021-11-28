@@ -11,6 +11,8 @@ import {redirect} from './store/middlewares/redirect';
 import {rootReducer} from './store/root-reducer';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from './browser-history/browser-history';
 
 
 const api = createAPI(
@@ -34,8 +36,10 @@ store.dispatch(fetchOffersAction());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
-      <ToastContainer />
+      <BrowserRouter history={browserHistory}>
+        <App />
+        <ToastContainer />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
