@@ -100,7 +100,7 @@ export const makeFakeReviewFromServer = (): ReviewFromServerType => ({
   },
 } as ReviewFromServerType);
 
-export const makeFakeOfferList = (): Offer[] => new Array(10).fill(null).map(() => makeFakeOffer());
+export const makeFakeOfferList = (): Offer[] => new Array(6).fill(null).map(() => makeFakeOffer());
 export const makeFakeReviewList = (): ReviewType[] => new Array(5).fill(null).map(() => makeFakeReview());
 export const makeFakeOfferListFromServer = ():OfferFromServer[] => new Array(10).fill(null).map(() => makeFakeOfferFromServer());
 export const makeFakeReviewListFromServer = (): ReviewFromServerType[] => new Array(10).fill(null).map(() => makeFakeReviewFromServer());
