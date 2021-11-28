@@ -7,8 +7,7 @@ import userEvent from '@testing-library/user-event';
 
 const history = createMemoryHistory();
 const fakeOffer = makeFakeOffer();
-const {id, title} = fakeOffer;
-
+const {title} = fakeOffer;
 
 describe('Component: NearbyOfferCard', () => {
   it('should render correctly',  () => {
@@ -28,20 +27,23 @@ describe('Component: NearbyOfferCard', () => {
   });
 
   it('should redirect to OpenedOffer when user click to title',  () => {
+    const renderMockFun = jest.fn();
     render(
       <Router history={history}>
         <Switch>
-          <Route>
-            <NearbyOfferCard offer={fakeOffer}/>
+          <Route exact path={`/offer/${fakeOffer.id}`} render={() => {
+            renderMockFun();
+            return <NearbyOfferCard offer={fakeOffer} />;
+          }}
+          >
           </Route>
-          <Route exact path={`/offer/${id}`}>
-            <h1>This is opened offer</h1>
+          <Route render={() => <NearbyOfferCard offer={fakeOffer} />}>
           </Route>
         </Switch>
       </Router>);
 
-    expect(screen.queryByText(/This is component with full information about offer/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(`${fakeOffer.title}`)).toBeInTheDocument();
     userEvent.click(screen.getByText(`${title}`));
-    expect(screen.getByText(/This is component with full information about offer/i)).toBeInTheDocument();
+    expect(renderMockFun).toBeCalled();
   });
 });
