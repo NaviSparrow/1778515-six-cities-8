@@ -1,6 +1,9 @@
 function Spinner(): JSX.Element {
   return (
-    <p>Loading...</p>
+    <div className="loader">
+      <p>Loading...</p>
+      <div className="lds-dual-ring"/>
+    </div>
   );
 }
 
