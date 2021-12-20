@@ -1,6 +1,6 @@
 # PET PROJECT ["SIX CITIES"](https://1778515-six-cities-8.vercel.app/)
 
-<img width="769" alt="six cities app" src="https://github.com/NaviSparrow/1778515-six-cities-8/tree/master/project/public/img/six-cities-app.png">
+<img alt="six cities app" src="https://github.com/NaviSparrow/1778515-six-cities-8/blob/master/project/public/img/six-cities-app.png">
 
 [Here](https://github.com/NaviSparrow/1778515-six-cities-8/tree/master/project/src) you can review the code written by me on **React** using **TypeScript**<br>
 HTML and CSS code was written by [HTML Academy](https://htmlacademy.ru/)
